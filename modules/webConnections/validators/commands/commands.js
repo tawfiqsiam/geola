@@ -1,0 +1,1 @@
+module.exports = (client, { data: commands }, { channel }) => channel.data.disabledCommands = commands.filter(c => !c.value).map(c => c.name);

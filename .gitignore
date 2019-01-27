@@ -1,0 +1,13 @@
+# Node modules
+node_modules/
+package.json
+package-lock.json
+
+# Env
+.env
+
+# Eslint
+.eslintrc.json
+
+# Geola's child
+indexChild.js
