@@ -4,7 +4,7 @@ module.exports = async (client, guild) => {
     const { Discord, models, _ } = client.modules.misc.preModule(client);
 
     //Fetch ALL the bitches!
-    guild = await guild.fetchMembers();
+    await guild.fetchMembers();
 
     //Guild unavailable
     if (
