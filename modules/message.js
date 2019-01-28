@@ -3,11 +3,14 @@ module.exports = async (client, message) => {
     //Pre Module
     const { models, _ } = client.modules.misc.preModule(client);
 
-    //Check for bots
-    if (message.author.bot) return;
-
     //Check for webhooks
     if (message.webhookID) return;
+
+    //Check for blacklist
+    if (await _.blacklisted(client, message.guild, message.author)) return;
+
+    //Check for bots
+    if (message.author.bot) return;
 
     //DM commands
     if ((message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!help`)) && (!message.guild)) client.modules.help(client, message); //help
