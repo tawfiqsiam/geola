@@ -2,7 +2,6 @@ module.exports = async (client, message) => {
 
     //Pre Module
     const { models, _ } = client.modules.misc.preModule(client);
-    const deepEqual = require("deep-equal");
 
     //Check for bots
     if (message.author.bot) return;
@@ -28,22 +27,6 @@ module.exports = async (client, message) => {
     message.channel.data = channel;
     message.author.data = user;
     message.member.data = member;
-
-    //Old data objects
-    const dataObjects = {
-        guild: {
-            old: message.guild.data.toObject()
-        },
-        channel: {
-            old: message.channel.data.toObject()
-        },
-        author: {
-            old: message.author.data.toObject()
-        },
-        member: {
-            old: message.member.data.toObject()
-        }
-    };
 
     //Clean docs
     _.clean(client, message.guild.data);
@@ -76,24 +59,13 @@ module.exports = async (client, message) => {
     //Await running modules
     await Promise.all(runningModules);
 
-    //New data objects
-    dataObjects.guild.new = message.guild.data.toObject();
-    dataObjects.channel.new = message.channel.data.toObject();
-    dataObjects.author.new = message.author.data.toObject();
-    dataObjects.member.new = message.member.data.toObject();
-
-    //Check for changes
-    for (let data in dataObjects) for (let d in dataObjects[data].new) {
-        if (!deepEqual(dataObjects[data].old[d], dataObjects[data].new[d])) message[data].data.markModified(d);
-    }
-
     //Save docs
-    await Promise.all([
-        _.save(client, message.guild.data),
-        _.save(client, message.channel.data),
-        _.save(client, message.author.data),
-        _.save(client, message.member.data)
-    ]);
+    const guildSave = models.servers.findByIdAndUpdate(message.guild.id, message.guild.data.toObject(), { new: true }).exec();
+    const channelSave = models.channels.findByIdAndUpdate(message.channel.id, message.channel.data.toObject(), { new: true }).exec();
+    const authorSave = models.users.findByIdAndUpdate(message.author.id, message.author.data.toObject(), { new: true }).exec();
+    const memberSave = models.members.findByIdAndUpdate(message.member.id, message.member.data.toObject(), { new: true }).exec();
+
+    await Promise.all([guildSave, channelSave, authorSave, memberSave]);
 
     //Timed Message Processors
     for (let mp of timedMessageProcessors) await client.modules[mp](client);
