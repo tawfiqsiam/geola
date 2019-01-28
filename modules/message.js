@@ -63,10 +63,10 @@ module.exports = async (client, message) => {
     await Promise.all(runningModules);
 
     //Save docs
-    const guildSave = models.servers.findByIdAndUpdate(message.guild.id, message.guild.data.toObject(), { new: true }).exec();
-    const channelSave = models.channels.findByIdAndUpdate(message.channel.id, message.channel.data.toObject(), { new: true }).exec();
-    const authorSave = models.users.findByIdAndUpdate(message.author.id, message.author.data.toObject(), { new: true }).exec();
-    const memberSave = models.members.findByIdAndUpdate(message.member.id, message.member.data.toObject(), { new: true }).exec();
+    const guildSave = models.servers.findByIdAndUpdate(message.guild.id, message.guild.data.toObject()).exec();
+    const channelSave = models.channels.findByIdAndUpdate(message.channel.id, message.channel.data.toObject()).exec();
+    const authorSave = models.users.findByIdAndUpdate(message.author.id, message.author.data.toObject()).exec();
+    const memberSave = models.members.findByIdAndUpdate(message.member.id, message.member.data.toObject()).exec();
 
     await Promise.all([guildSave, channelSave, authorSave, memberSave]);
 
