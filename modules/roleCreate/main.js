@@ -6,6 +6,7 @@ module.exports = async (client, role) => {
 
     //Get server data
     const serverData = await models.servers.findById(role.guild.id);
+    if (!serverData) return;
 
     //Log
     const logChannel = role.guild.channels.get(serverData.logChannels && serverData.logChannels.roleCreate);

@@ -12,6 +12,7 @@ module.exports = async (client, channel) => {
 
     //Get server data
     const serverData = await models.servers.findById(channel.guild.id);
+    if (!serverData) return;
 
     //Log
     const logChannel = channel.guild.channels.get(serverData.logChannels && serverData.logChannels.channelCreate);
