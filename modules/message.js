@@ -7,6 +7,9 @@ module.exports = async (client, message) => {
     //Check for bots
     if (message.author.bot) return;
 
+    //Check for webhooks
+    if (message.webhookID) return;
+
     //DM commands
     if ((message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!help`)) && (!message.guild)) client.modules.help(client, message); //help
     if ((message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!badgealerts`)) && (!message.guild)) client.modules.badgeAlerts(client, message); //badge alerts
