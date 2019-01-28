@@ -5,6 +5,10 @@ module.exports = {
         required: true,
         unique: true
     },
+    bot: {
+        type: Boolean,
+        required: true
+    },
     xp: {
         xp: {
             type: Number,

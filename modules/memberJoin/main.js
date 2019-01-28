@@ -16,8 +16,8 @@ module.exports = async (client, member) => {
     }
 
     //Create docs
-    await models.users.create({ _id: member.id }).catch(() => { });
-    await models.members.create({ _id: { server: member.guild.id, user: member.id } }).catch(() => { });
+    await models.users.create({ _id: member.id, bot: member.user.bot }).catch(() => { });
+    await models.members.create({ _id: { server: member.guild.id, user: member.id }, bot: member.user.bot }).catch(() => { });
 
     //Log
     const logChannel = member.guild.channels.get(serverData.logChannels && serverData.logChannels.memberJoin);

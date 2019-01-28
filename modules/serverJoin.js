@@ -40,8 +40,8 @@ module.exports = async (client, guild) => {
     //Create docs
     models.servers.create({ _id: guild.id }).catch(() => { }); //server
     models.channels.insertMany(guild.channels.map(c => ({ _id: c.id })), { ordered: false }).catch(() => { }); //channels
-    models.members.insertMany(guild.members.map(m => ({ _id: { server: guild.id, user: m.id } })), { ordered: false }).catch(() => { }); //members
-    models.users.insertMany(guild.members.map(m => ({ _id: m.id })), { ordered: false }).catch(() => { }); //users
+    models.members.insertMany(guild.members.map(m => ({ _id: { server: guild.id, user: m.id }, bot: m.user.bot })), { ordered: false }).catch(() => { }); //members
+    models.users.insertMany(guild.members.map(m => ({ _id: m.id, bot: m.user.bot })), { ordered: false }).catch(() => { }); //users
 
     //Thank you message
     let embed = new Discord.RichEmbed()

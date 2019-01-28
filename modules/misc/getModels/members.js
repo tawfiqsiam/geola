@@ -4,6 +4,10 @@ module.exports = {
         server: String,
         user: String
     },
+    bot: {
+        type: Boolean,
+        required: true
+    },
     xp: {
         xp: {
             type: Number,
