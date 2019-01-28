@@ -1,7 +1,7 @@
 module.exports = async client => {
 
     //Pre Module
-    const { models } = client.modules.misc.preModule(client);
+    const { models, _ } = client.modules.misc.preModule(client);
 
     //Get servers
     const servers = await models.servers.find({
