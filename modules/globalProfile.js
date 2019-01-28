@@ -34,7 +34,7 @@ module.exports = async (client, message) => {
         await models.users.findById(target.id);
 
     //Get leaderboard rank
-    const rank = await models.users.countDocuments({
+    const rank = "--" || await models.users.countDocuments({
         _id: { $in: client.users.filter(u => u.bot === target.bot).map(u => u.id) },
         "xp.totalXP": { $gte: data.xp.totalXP }
     });

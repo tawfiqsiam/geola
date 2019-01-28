@@ -16,16 +16,13 @@ module.exports = async (client, message) => {
     if ((isNaN(page)) || (page < 1)) page = 1;
     let place = 5 * (page - 1);
 
-    //Define valid users
-    const validUsers = client.users.filter(u => u.bot === bot).map(u => u.id);
-
     //Save data
     await _.save(client, message.author.data);
 
     //Get data
     let data = await models.users.find(
         {
-            _id: { $in: validUsers },
+            bot,
             [type === "xp" ? "xp.totalXP" : "cubits"]: { $gt: 0 }
         },
         "xp cubits",
@@ -53,27 +50,26 @@ module.exports = async (client, message) => {
         .setTimestamp();
 
     //Loop through users
-    data.forEach(u => {
+    for (let u of data) {
 
         //Increment place
         place = place + 1;
 
-        const user = client.users.get(u._id);
+        const user = client.users.get(u._id) || await client.fetchUser(u._id);
         embed.addField(
             `${place}. ${user.tag}`,
             type === "xp" ?
                 `Level ${u.xp.level} - ${u.xp.totalXP} Total XP` :
                 `${u.cubits} Cubits`
         );
-
-    });
+    }
 
     //Self
     if (!bot) {
 
         //Get data
-        let self = await models.users.countDocuments({
-            _id: { $in: validUsers },
+        let self = "--" || await models.users.countDocuments({
+            bot,
             [type === "xp" ? "xp.totalXP" : "cubits"]: { $gte: type === "xp" ? message.author.data.xp.totalXP : message.author.data.cubits }
         });
 

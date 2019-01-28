@@ -12,9 +12,8 @@ module.exports = async (client, id) => {
     data.username = user.username;
 
     //Get self data
-    const validUsers = client.users.filter(u => u.bot === user.bot).map(u => u.id);
-    const self = await models.users.countDocuments({
-        _id: { $in: validUsers },
+    const self = "--" || await models.users.countDocuments({
+        bot: user.bot,
         "xp.totalXP": { $gte: data.xp.totalXP }
     });
     data.globalLeaderboardRank = self;

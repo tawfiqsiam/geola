@@ -16,10 +16,6 @@ module.exports = async (client, message) => {
     if ((isNaN(page)) || (page < 1)) page = 1;
     let place = 5 * (page - 1);
 
-    //Define valid users
-    await message.guild.fetchMembers();
-    const validUsers = message.guild.members.filter(m => m.user.bot === bot).map(m => m.id);
-
     //Save data
     await _.save(client, message.member.data);
 
@@ -27,7 +23,7 @@ module.exports = async (client, message) => {
     let data = await models.members.find(
         {
             "_id.server": message.guild.id,
-            "_id.user": { $in: validUsers },
+            bot,
             [type === "xp" ? "xp.totalXP" : "currency"]: { $gt: 0 }
         },
         "xp currency",
@@ -55,28 +51,27 @@ module.exports = async (client, message) => {
         .setTimestamp();
 
     //Loop through users
-    data.forEach(u => {
+    for (let u of data) {
 
         //Increment place
         place = place + 1;
 
-        const user = client.users.get(u._id.user);
+        const user = client.users.get(u._id.user) || await client.fetchUser(u._id.user);
         embed.addField(
             `${place}. ${user.tag}`,
             type === "xp" ?
                 `Level ${u.xp.level} - ${u.xp.totalXP} Total XP` :
                 `${u.currency} ${message.guild.data.currencyName}`
         );
-
-    });
+    }
 
     //Self
     if (!bot) {
 
         //Get data
-        let self = await models.members.countDocuments({
+        let self = "--" || await models.members.countDocuments({
             "_id.server": message.guild.id,
-            "_id.user": { $in: validUsers },
+            bot,
             [type === "xp" ? "xp.totalXP" : "currency"]: { $gte: type === "xp" ? message.member.data.xp.totalXP : message.member.data.currency }
         });
 
