@@ -10,9 +10,16 @@ module.exports = async (client, ...docs) => {
         //Get doc info
         const model = doc.constructor.modelName;
         const id = model === "members" ? Object.assign({}, doc._id) : doc._id;
+        const docObject = doc.toObject();
+        const modifiedPaths = doc.modifiedPaths().filter(mp => (!mp.includes(".")) && (!docObject.hasOwnProperty(mp)));
+
+        //Unsets
+        const unsets = {};
+        modifiedPaths.forEach(mp => unsets[mp] = 1);
+        if (Object.keys(unsets).length) docObject["$unset"] = unsets;
 
         //Update doc
-        saving.push(models[model].findByIdAndUpdate(id, doc.toObject()).exec());
+        saving.push(models[model].findByIdAndUpdate(id, docObject).exec());
     }
 
     //Await updates
