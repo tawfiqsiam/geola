@@ -2,6 +2,7 @@ module.exports = async (client, message) => {
 
     //Pre Module
     const { models, _ } = client.modules.misc.preModule(client);
+    const runningModules = [];
 
     //Check for webhooks
     if (message.webhookID) return;
@@ -9,34 +10,39 @@ module.exports = async (client, message) => {
     //Check for blacklist
     if (await _.blacklisted(client, message.guild, message.author)) return;
 
-    //Check for bots
-    if (message.author.bot) return;
-
     //DM commands
-    if ((message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!help`)) && (!message.guild)) client.modules.help(client, message); //help
-    if ((message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!badgealerts`)) && (!message.guild)) client.modules.badgeAlerts(client, message); //badge alerts
+    if (!message.author.bot) {
+        if ((message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!help`)) && (!message.guild)) client.modules.help(client, message); //help
+        if ((message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!badgealerts`)) && (!message.guild)) client.modules.badgeAlerts(client, message); //badge alerts
+    }
 
     //Check for DMs
     if (message.channel.type === "dm") return;
 
-    //Validate DB entries
-    let server = await models.servers.findByIdAndUpdate(message.guild.id, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
-    let channel = await models.channels.findByIdAndUpdate(message.channel.id, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
-    let user = await models.users.findByIdAndUpdate(message.author.id, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
-    let member = await models.members.findByIdAndUpdate({ server: message.guild.id, user: message.author.id }, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
+    //Get data
+    message.guild.data = await models.servers.findByIdAndUpdate(message.guild.id, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
+    message.channel.data = await models.channels.findByIdAndUpdate(message.channel.id, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
+    message.author.data = await models.users.findByIdAndUpdate(message.author.id, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
+    message.member.data = await models.members.findByIdAndUpdate({ server: message.guild.id, user: message.author.id }, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
 
-    //Set object data
-    message.guild.data = server;
-    message.channel.data = channel;
-    message.author.data = user;
-    message.member.data = member;
+    //XP gain
+    runningModules.push(client.modules.xpGain(client, message));
+    runningModules.push(client.modules.globalXPGain(client, message));
+
+    //Check for bots
+    if (message.author.bot) {
+
+        await Promise.all(runningModules);
+        await _.save(client, message.author.data, message.member.data);
+
+        return;
+    }
 
     //Clean docs
     _.clean(client, message.guild.data);
 
     //Get Modules
     const { commands, messageProcessors, timedMessageProcessors } = _;
-    const runningModules = [];
 
     //Message Processors
     messageProcessors.forEach(mp => runningModules.push(client.modules[mp](client, message)));
@@ -63,12 +69,7 @@ module.exports = async (client, message) => {
     await Promise.all(runningModules);
 
     //Save docs
-    const guildSave = models.servers.findByIdAndUpdate(message.guild.id, message.guild.data.toObject()).exec();
-    const channelSave = models.channels.findByIdAndUpdate(message.channel.id, message.channel.data.toObject()).exec();
-    const authorSave = models.users.findByIdAndUpdate(message.author.id, message.author.data.toObject()).exec();
-    const memberSave = models.members.findByIdAndUpdate(message.member.id, message.member.data.toObject()).exec();
-
-    await Promise.all([guildSave, channelSave, authorSave, memberSave]);
+    await _.save(client, message.guild.data, message.channel.data, message.author.data, message.member.data);
 
     //Timed Message Processors
     for (let mp of timedMessageProcessors) await client.modules[mp](client);

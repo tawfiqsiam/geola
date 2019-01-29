@@ -1,18 +1,20 @@
-module.exports = async (client, doc) => new Promise(resolve => {
+module.exports = async (client, ...docs) => {
 
     //Pre Module
-    const { _ } = client.modules.misc.preModule(client);
+    const { models } = client.modules.misc.preModule(client);
+    const saving = [];
 
-    //Get save queue + queue
-    const saveQueue = client.saveQueues[doc.constructor.modelName];
-    const queueData = saveQueue.get(doc._id) || { docs: [], saving: false };
+    //Loop through each doc
+    for (let doc of docs) {
 
-    //Add to queue
-    queueData.docs.push({ doc, resolvePromise: resolve });
+        //Get doc info
+        const model = doc.constructor.modelName;
+        const id = model === "members" ? Object.assign({}, doc._id) : doc._id;
 
-    //Update queue
-    saveQueue.set(doc._id, queueData);
+        //Update doc
+        saving.push(models[model].findByIdAndUpdate(id, doc.toObject()).exec());
+    }
 
-    //Run saver
-    _.saver(client);
-});
+    //Await updates
+    await Promise.all(saving);
+};

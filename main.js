@@ -18,7 +18,6 @@ module.exports = async () => {
     client.latestQuery = null;
     client.cooldowns = new Map();
     client.botUse = new Map();
-    client.saveQueues = {};
 
     //Build client: Models
     client.models = client.modules.misc.getModels.main(client);

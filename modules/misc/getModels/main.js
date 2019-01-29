@@ -19,8 +19,6 @@ module.exports = client => {
         });
 
         models[builder] = mongoose.model(builder, schema);
-
-        client.saveQueues[builder] = new Map();
     }
 
     return models;
