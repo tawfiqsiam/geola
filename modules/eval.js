@@ -1,7 +1,7 @@
 module.exports = async (client, message) => {
 
     //Pre Module
-    const { chalk } = client.modules.misc.preModule(client);
+    const { Discord, mongoose, chalk, models, _ } = client.modules.misc.preModule(client);
 
     //Restrict command
     if (message.author.id !== client.apixel.id) return;
