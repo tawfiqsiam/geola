@@ -45,8 +45,8 @@ module.exports = async (client, data) => {
     serverDataLean.members = server.members.map(m => ({
         id: m.id,
         tag: m.user.tag,
-        currency: memberData[m.id].currency,
-        xpBlacklisted: memberData[m.id].xpBlacklisted
+        currency: memberData[m.id] && memberData[m.id].currency,
+        xpBlacklisted: memberData[m.id] && memberData[m.id].xpBlacklisted
     }));
     serverDataLean.commands = _.commands.filter(c => (c.access === "everyone") && (!c.noToggle)).map(c => c.name);
 
