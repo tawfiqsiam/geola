@@ -17,7 +17,8 @@ module.exports = async (client, data) => {
     if ((!member) || (!member.hasPermission("MANAGE_GUILD"))) return;
 
     //Get + parse channel data
-    const rawChannelData = await models.channels.find({ _id: { $in: [...server.channels.keyArray()] } });
+    const textChannels = server.channels.filter(c => c.type === "text");
+    const rawChannelData = await models.channels.find({ _id: { $in: [...textChannels.keyArray()] } });
     const channelData = {};
     rawChannelData.forEach(c => channelData[c._id] = {
         disabledCommands: c.disabledCommands,
@@ -40,7 +41,7 @@ module.exports = async (client, data) => {
     //Parse server data
     const serverDataLean = serverData.toObject();
     serverDataLean.name = server.name;
-    serverDataLean.channels = server.channels.map(c => Object.assign({ id: c.id, name: c.name }, channelData[c.id]));
+    serverDataLean.channels = textChannels.map(c => Object.assign({ id: c.id, name: c.name }, channelData[c.id]));
     serverDataLean.roles = server.roles.filter(r => (r.id !== server.id) && (!r.managed)).map(r => ({ id: r.id, name: r.name }));
     serverDataLean.members = server.members.map(m => ({
         id: m.id,
