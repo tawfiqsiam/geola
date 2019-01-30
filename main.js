@@ -48,7 +48,7 @@ module.exports = async () => {
     process.on("unhandledRejection", reason => {
 
         //Filter
-        if (["Missing Permissions", "Missing Access"].includes(reason.toString())) return;
+        if (["Missing Permissions", "Missing Access"].some(e => reason.toString().includes(e))) return;
 
         //Log
         console.log(chalk.red(reason.stack));
