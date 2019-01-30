@@ -40,12 +40,12 @@ module.exports = async (client, message) => {
     const number = 10 * (page - 1);
     let items = "";
     for (let i = number; i < number + 10; i++) {
-        let item = Object.keys(data.inv)[i];
-        if (item) items = `${items}\n${item}: ${data.inv[item]}`;
+        let item = data.inv[i];
+        if (item) items = `${items}\n${item.name}: ${item.amount}`;
     }
 
     //No items
-    if (Object.keys(data.inv).length === 0) items = "*None*";
+    if (!data.inv.length) items = "*None*";
 
     //Page too high
     if (items === "") return _.send({

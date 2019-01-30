@@ -74,7 +74,8 @@ module.exports = async (client, message) => {
     const sellPrice = item.sellPrice * amount;
 
     //No items
-    if ((item.itemType === "item") && (!memberData.inv[item.name])) return _.send({
+    const invItem = memberData.inv.find(i => i.name === item.name);
+    if ((item.itemType === "item") && (!invItem)) return _.send({
         client,
         id: "sell no items",
         channel: message.channel,
@@ -84,24 +85,20 @@ module.exports = async (client, message) => {
     });
 
     //Not enough items
-    if ((item.itemType === "item") && (memberData.inv[item.name] < amount)) return _.send({
+    if ((item.itemType === "item") && (invItem.amount < amount)) return _.send({
         client,
         id: "sell not enough items",
         channel: message.channel,
         message: "You only have {VAR1} {VAR2}!",
         emoji: "x",
-        vars: [memberData.inv[item.name], item.name]
+        vars: [invItem.amount, item.name]
     });
 
     //Add currency
     memberData.currency = memberData.currency + sellPrice;
 
     //Remove item
-    if (item.itemType === "item") { //item
-        memberData.inv[item.name] = memberData.inv[item.name] - amount;
-        if (!memberData.inv[item.name]) delete memberData.inv[item.name];
-        memberData.markModified("inv");
-    }
+    if (item.itemType === "item") _.removeItem(memberData.inv, item.name, amount); //item
     else message.member.removeRole(item.name); //role
 
     //Send

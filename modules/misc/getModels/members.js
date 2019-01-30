@@ -31,10 +31,10 @@ module.exports = {
         type: Number,
         default: 0
     },
-    inv: {
-        type: Object,
-        default: {}
-    },
+    inv: [{
+        name: String,
+        amount: Number
+    }],
     warnings: {
         type: [String],
         default: []

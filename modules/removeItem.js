@@ -71,7 +71,8 @@ module.exports = async (client, message) => {
     });
 
     //Not enough items in inv
-    if ((!targetData.inv[item]) || targetData.inv[item] < amount) return _.send({
+    const invItem = targetData.inv.find(i => i.name === item);
+    if ((!invItem) || (invItem.amount < amount)) return _.send({
         client,
         id: "removeitem not enough items in inv",
         channel: message.channel,
@@ -81,9 +82,7 @@ module.exports = async (client, message) => {
     });
 
     //Remove item
-    targetData.inv[item] = targetData.inv[item] - amount;
-    if (!targetData.inv[item]) delete targetData.inv[item];
-    targetData.markModified("inv");
+    _.removeItem(targetData.inv, item, amount);
     await _.save(client, targetData);
 
     //Send

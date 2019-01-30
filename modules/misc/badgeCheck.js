@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
     });
 
     //Lucky badges
-    if (!user.inv.hasOwnProperty("Lucky I Badge")) {
+    if (!user.inv.find(i => i.name === "Lucky I Badge")) {
         if (Math.floor(Math.random() * 99) + 1 === 1) await _.badge({
             client,
             action: "add",
@@ -36,7 +36,7 @@ module.exports = async (client, message) => {
             name: "Lucky I"
         });
     }
-    else if (!user.inv.hasOwnProperty("Lucky II Badge")) {
+    else if (!user.inv.find(i => i.name === "Lucky II Badge")) {
         if (Math.floor(Math.random() * 999) + 1 === 1) await _.badge({
             client,
             action: "add",
@@ -44,7 +44,7 @@ module.exports = async (client, message) => {
             name: "Lucky II"
         });
     }
-    else if (!user.inv.hasOwnProperty("Lucky III Badge")) {
+    else if (!user.inv.find(i => i.name === "Lucky III Badge")) {
         if (Math.floor(Math.random() * 9999) + 1 === 1) await _.badge({
             client,
             action: "add",

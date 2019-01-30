@@ -1,6 +1,7 @@
 module.exports = async (client, message, level) => {
 
     //Pre Module
+    const { _ } = client.modules.misc.preModule(client);
     const serverData = message.guild.data;
     const memberData = message.member.data;
 
@@ -35,11 +36,8 @@ module.exports = async (client, message, level) => {
     await message.member.removeRoles(levelReward.removeRoles).catch(() => { });
 
     //Add items
-    if (levelReward.addItems) levelReward.addItems.forEach(i => memberData.inv[i.name] = memberData.inv[i.name] + i.amount || i.amount);
+    if (levelReward.addItems) levelReward.addItems.forEach(i => _.addItem(memberData.inv, i.name, i.amount));
 
     //Remove items
-    if (levelReward.removeItems) levelReward.removeItems.forEach(i => {
-        memberData.inv[i.name] = memberData.inv[i.name] - i.amount;
-        if ((isNaN(memberData.inv[i.name])) || (memberData.inv[i.name] <= 0)) delete memberData.inv[i.name];
-    });
+    if (levelReward.removeItems) levelReward.removeItems.forEach(i => _.removeItem(memberData.inv, i.name, i.amount));
 };

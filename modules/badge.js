@@ -71,10 +71,10 @@ module.exports = async (client, message) => {
     target.data = await models.users.findById(target.id);
 
     //User already has badge
-    if ((action === "add") && (target.data.inv.hasOwnProperty(`${badge} Badge`))) return message.channel.send(":x:  **|  That user already has that Badge!**");
+    if ((action === "add") && (target.data.inv.find(i => i.name === `${badge} Badge`))) return message.channel.send(":x:  **|  That user already has that Badge!**");
 
     //User doesnt have badge
-    if ((action === "remove") && (!target.data.inv.hasOwnProperty(`${badge} Badge`))) return message.channel.send(":x:  **|  That user doesn't have that Badge!**");
+    if ((action === "remove") && (!target.data.inv.find(i => i.name === `${badge} Badge`))) return message.channel.send(":x:  **|  That user doesn't have that Badge!**");
 
     //Add/remove badge
     await _.badge({
@@ -83,7 +83,6 @@ module.exports = async (client, message) => {
         user: target,
         name: badge
     });
-    target.data.markModified("inv");
 
     await _.save(client, target.data);
 

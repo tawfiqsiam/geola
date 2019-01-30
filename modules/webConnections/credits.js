@@ -9,9 +9,7 @@ module.exports = async client => {
     const data = {
         developers: client.developerRole.members.map(m => ({ id: m.id, tag: m.user.tag })),
         supportStaff: client.geolasHub.roles.get("351154399894044673").members.filter(m => m.id !== client.apixel.id).map(m => ({ id: m.id, tag: m.user.tag })),
-        moderators: client.geolasHub.roles.get("350647287204151296").members.filter(m => m.id !== client.apixel.id).map(m => ({ id: m.id, tag: m.user.tag })),
-        donators: [],
-        suggestors: []
+        moderators: client.geolasHub.roles.get("350647287204151296").members.filter(m => m.id !== client.apixel.id).map(m => ({ id: m.id, tag: m.user.tag }))
     };
 
     //Get suggestors + donators
@@ -20,13 +18,8 @@ module.exports = async client => {
         $and: [{ _id: { $in: validUsers } }, { _id: { $ne: client.apixel.id } }],
         $or: [{ "inv.Donator I Badge": 1 }, { "inv.Suggestor Badge": 1 }]
     });
-    users.forEach(u => {
-
-        let userData = { id: u._id, tag: client.users.get(u._id).tag };
-
-        if (u.inv["Donator I Badge"]) data.donators.push(userData);
-        if (u.inv["Suggestor Badge"]) data.suggestors.push(userData);
-    });
+    data.donators = users.filter(u => u.inv.find(i => i.name === "Donator I Badge")).map(u => ({ id: u._id, tag: client.users.get(u._id).tag }));
+    data.suggestors = users.filter(u => u.inv.find(i => i.name === "Suggestor Badge")).map(u => ({ id: u._id, tag: client.users.get(u._id).tag }));
 
     //Return
     return data;

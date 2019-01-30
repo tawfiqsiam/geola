@@ -19,9 +19,9 @@ module.exports = async ({ client, action, user, name }) => {
     if (action === "add") {
         //Add
 
-        if (user.data.inv.hasOwnProperty(name)) return;
+        if (user.data.inv.find(i => i.name === name)) return;
 
-        user.data.inv[name] = 1;
+        _.addItem(user.data.inv, name, 1);
 
         if (!user.data.get("badgeAlertsDisabled")) user.send( //notify
             `:white_flower:  **|  You have earned the ${name}! If you no longer wish to receive badge alerts, say \`g!badgealerts disable\`**`
@@ -29,5 +29,5 @@ module.exports = async ({ client, action, user, name }) => {
 
         await _.stats(client, "Badges Collected"); //stats
     }
-    else delete user.data.inv[name]; //Remove
+    else _.removeItem(user.data.inv, name, 1); //Remove
 };

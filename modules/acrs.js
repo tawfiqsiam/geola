@@ -88,14 +88,10 @@ module.exports = async (client, message) => {
     if (acr.removeCurrency) memberData.currency = memberData.currency - acr.removeCurrency;
 
     //Add items
-    acr.addItems.forEach(i => memberData.inv[i.name] = memberData.inv[i.name] + i.amount || i.amount);
+    acr.addItems.forEach(i => _.addItem(memberData.inv, i.name, i.amount));
 
     //Remove items
-    acr.removeItems.forEach(i => {
-        memberData.inv[i.name] = memberData.inv[i.name] - i.amount;
-        if (!memberData.inv[i.name]) delete memberData.inv[i.name];
-        memberData.markModified("inv");
-    });
+    acr.removeItems.forEach(i => _.removeItem(memberData.inv, i.name, i.amount));
 
     //Set cooldown
     if (acr.cooldown) {

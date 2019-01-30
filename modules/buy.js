@@ -87,7 +87,7 @@ module.exports = async (client, message) => {
     memberData.currency = memberData.currency - price;
 
     //Add item
-    if (item.itemType === "item") memberData.inv[item.name] = memberData.inv[item.name] + amount || amount; //item
+    if (item.itemType === "item") _.addItem(memberData.inv, item.name, amount); //item
     else message.member.addRole(item.name); //role
 
     //Send

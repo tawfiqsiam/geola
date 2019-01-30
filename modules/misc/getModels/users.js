@@ -36,10 +36,10 @@ module.exports = {
         default: 0
     },
     reputationCooldown: Number,
-    inv: {
-        type: Object,
-        default: {}
-    },
+    inv: [{
+        name: String,
+        amount: Number
+    }],
     stats: {
         type: {
             commandsUsed: Number,

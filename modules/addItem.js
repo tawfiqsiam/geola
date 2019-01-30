@@ -71,7 +71,7 @@ module.exports = async (client, message) => {
     });
 
     //Add item
-    targetData.inv[item] = targetData.inv[item] + amount || amount;
+    _.addItem(targetData.inv, item, amount);
     await _.save(client, targetData);
 
     //Send
