@@ -48,7 +48,11 @@ module.exports = async () => {
     process.on("unhandledRejection", reason => {
 
         //Filter
-        if (["Missing Permissions", "Missing Access"].some(e => reason.toString().includes(e))) return;
+        if ([
+            "Missing Permissions",
+            "Missing Access",
+            "MongoError: E11000 duplicate key error collection: geola.channels"
+        ].some(e => reason.toString().includes(e))) return;
 
         //Log
         console.log(chalk.red(reason.stack));
