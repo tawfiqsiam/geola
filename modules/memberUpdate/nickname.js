@@ -13,7 +13,7 @@ module.exports = async (client, oldMember, newMember) => {
 
     //Log
     const logChannel = newMember.guild.channels.get(serverData.logChannels && serverData.logChannels.memberUpdate);
-    if (logChannel) {
+    if ((logChannel) && (newMember.joinedTimestamp < Date.now() - 3000)) {
 
         //Embed
         const embed = new Discord.RichEmbed()
