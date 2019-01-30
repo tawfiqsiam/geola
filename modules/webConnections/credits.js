@@ -13,13 +13,22 @@ module.exports = async client => {
     };
 
     //Get suggestors + donators
-    const validUsers = client.users.map(u => u.id);
     let users = await models.users.find({
-        $and: [{ _id: { $in: validUsers } }, { _id: { $ne: client.apixel.id } }],
-        $or: [{ "inv.Donator I Badge": 1 }, { "inv.Suggestor Badge": 1 }]
+        _id: { $ne: client.apixel.id },
+        inv: { $elemMatch: { $or: [{ name: "Donator I Badge" }, { name: "Suggestor Badge" }] } }
     });
-    data.donators = users.filter(u => u.inv.find(i => i.name === "Donator I Badge")).map(u => ({ id: u._id, tag: client.users.get(u._id).tag }));
-    data.suggestors = users.filter(u => u.inv.find(i => i.name === "Suggestor Badge")).map(u => ({ id: u._id, tag: client.users.get(u._id).tag }));
+
+    data.donators = users.filter(u => u.inv.find(i => i.name === "Donator I Badge")).map(async u => {
+        u = client.users.get(u._id) || await client.fetchUser(u._id);
+        return { id: u.id, tag: `${u.username}#${u.discriminator}` };
+    });
+    data.donators = await Promise.all(data.donators);
+
+    data.suggestors = users.filter(u => u.inv.find(i => i.name === "Suggestor Badge")).map(async u => {
+        u = client.users.get(u._id) || await client.fetchUser(u._id);
+        return { id: u.id, tag: `${u.username}#${u.discriminator}` };
+    });
+    data.suggestors = await Promise.all(data.suggestors);
 
     //Return
     return data;
