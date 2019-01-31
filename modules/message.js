@@ -11,9 +11,9 @@ module.exports = async (client, message) => {
     if (await _.blacklisted(client, message.guild, message.author)) return;
 
     //DM commands
-    if (!message.author.bot) {
-        if ((message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!help`)) && (!message.guild)) client.modules.help(client, message); //help
-        if ((message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!badgealerts`)) && (!message.guild)) client.modules.badgeAlerts(client, message); //badge alerts
+    if ((!message.author.bot) && (!message.guild)) {
+        if (message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!help`)) client.modules.help(client, message); //help
+        if (message.content.toLowerCase().replace(/\s+/g, "").startsWith(`g!badgealerts`)) client.modules.badgeAlerts(client, message); //badge alerts
     }
 
     //Check for DMs
