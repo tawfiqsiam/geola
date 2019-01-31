@@ -57,7 +57,7 @@ module.exports = async (client, member) => {
 
     //Remembrance
     const memberData = await models.members.findById({ server: member.guild.id, user: member.id });
-    if ((serverData.roleRemembrance) && (memberData.roles)) setRoles = setRoles.concat(memberData.roles);
+    if ((serverData.hasOwnProperty("rememberedRoles")) && (memberData.roles)) setRoles = setRoles.concat(memberData.roles.filter(r => serverData.rememberedRoles.includes(r)));
     if ((serverData.nicknameRemembrance) && (memberData.nickname)) member.setNickname(memberData.nickname);
 
     //Autorole

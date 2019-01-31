@@ -24,7 +24,7 @@ module.exports = {
     leaveChannel: String,
     leaveMessage: String,
     globalBanProtection: Boolean,
-    roleRemembrance: Boolean,
+    rememberedRoles: [String],
     nicknameRemembrance: Boolean,
     xp: {
         min: Number,
