@@ -6,6 +6,9 @@ module.exports = async (client, ...targets) => {
     //Get data
     let data = await models.data.findOne();
 
+    //Filter targets
+    targets = targets.filter(t => t);
+
     //Check for blacklist
     for (let t of targets) if (data[t instanceof Discord.User ? "blacklistedUsers" : "blacklistedServers"].find(b => b.id === t.id)) return true;
 
