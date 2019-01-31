@@ -23,4 +23,7 @@ module.exports = async (client, con) => {
 
     //Credits
     con.on("credits", async (...params) => con.emit("credits", await webConnections.credits(client, ...params)));
+
+    //Translator Dashboard
+    con.on("translatorDashboard", async (...params) => con.emit("translatorDashboard", await webConnections.translatorDashboard(client, ...params)));
 };
