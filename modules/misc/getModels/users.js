@@ -52,5 +52,9 @@ module.exports = {
     clientSecret: String,
     accessToken: String,
     refreshToken: String,
+    translator: {
+        acceptedTerms: Boolean,
+        blacklisted: Boolean
+    },
     verified: Boolean
 };
