@@ -19,6 +19,13 @@ module.exports = (client, doc) => {
     //Leave channel
     if (!server.channels.get(doc.leaveChannel)) doc.leaveChannel = undefined;
 
+    //Remembered roles
+    const rememberedRoles = doc.rememberedRoles;
+    doc.rememberedRoles = [];
+    rememberedRoles.forEach(a => {
+        if (server.roles.get(a)) doc.rememberedRoles.push(a);
+    });
+
     //Level rewards
     doc.levelRewards.forEach(lr => {
 
