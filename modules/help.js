@@ -14,6 +14,7 @@ module.exports = async (client, message) => {
     else if (["fun", "funcommands"].includes(type)) type = "fun";
     else if (["mod", "moderator", "modcommands", "moderatorcommands"].includes(type)) type = "mod";
     else if (["misc", "miscellaneous", "misccommands", "miscellaneouscommands"].includes(type)) type = "misc";
+    else if (["features", "botfeatures", "geola", "geolafeatures"].includes(type)) type = "features";
     else if (["owner", "ownercommands", "dev", "devcommands", "developer", "developercommands"].includes(type)) type = "owner";
     else type = "";
 
@@ -46,12 +47,14 @@ module.exports = async (client, message) => {
         content = `\u2022Basic\n\u2022Fun\n\u2022Mod\n\u2022Misc\n\u2022Bot Features${isDev ? "\n\u2022Owner" : ""}`;
     }
 
+    if (type === "features") content = "\u2022Multiple Autoroles\n\u2022Self-Roles\n\u2022Role/Nickname Remembrance\n\u2022XP/Level Rewards System\n\u2022Server Currency, Items, and Shops\n\u2022Custom Commands\n\u2022Rich Dashboard\n\u2022Global Ban Protection\n\u2022Custom Prefixes";
+
     //Embed
     let embed = new Discord.RichEmbed()
         .setTitle("Help")
         .setColor(_.colors.geola)
         .addField("Prefix", `**${prefix}**`, true)
-        .addField("Mod Prefix", `**${modPrefix}**`, true)
+        .addField("Mod Prefix", `**${modPrefix}**`, true);
 
     //Embed content
     let splitContent = content.split("\n");
