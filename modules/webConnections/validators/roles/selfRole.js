@@ -1,7 +1,10 @@
 module.exports = (client, { id, data: selfRole }, { server }) => {
 
     //Remove self role
-    if ((!selfRole) && (server.data.selfRoles.includes(id))) return server.data.selfRoles.splice(server.data.selfRoles.indexOf(id), 1);
+    if (!selfRole) {
+        if (server.data.selfRoles.includes(id)) server.data.selfRoles.splice(server.data.selfRoles.indexOf(id), 1);
+        return;
+    }
 
     //Get role
     const role = server.roles.get(id);
