@@ -15,12 +15,16 @@ module.exports = async (client, oldMember, newMember) => {
     const logChannel = newMember.guild.channels.get(serverData.logChannels && serverData.logChannels.memberUpdate);
     if ((logChannel) && (newMember.joinedTimestamp < Date.now() - 3000)) {
 
+        let audit = await newMember.guild.fetchAuditLogs({ limit: 1 });
+        audit = audit.entries.array()[0];
+
         //Embed
         const embed = new Discord.RichEmbed()
             .setTitle("Member Edited")
             .setDescription(`${newMember} (${newMember.user.tag})`)
             .setColor(_.colors.good)
             .addField("Nickname", `${oldMember.nickname || "*None*"} >> ${newMember.nickname || "*None*"}`)
+            .addField("Member Editor", `${audit.executor} (${audit.executor.id})`)
             .setTimestamp();
 
         //Send
