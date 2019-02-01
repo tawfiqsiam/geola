@@ -41,5 +41,6 @@ module.exports = {
         user: String,
         reason: String
     }],
+    validLanguages: [String],
     clientSecrets: [String]
 };
