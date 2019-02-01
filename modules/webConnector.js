@@ -26,4 +26,7 @@ module.exports = async (client, con) => {
 
     //Translator Dashboard
     con.on("translatorDashboard", async (...params) => con.emit("translatorDashboard", await webConnections.translatorDashboard(client, ...params)));
+
+    //Translator Dashboard: Accept
+    con.on("tdAccept", async (...params) => con.emit("tdAccept", await webConnections.tdAccept(client, ...params)));
 };
