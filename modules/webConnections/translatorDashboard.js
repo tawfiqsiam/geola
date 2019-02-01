@@ -6,6 +6,7 @@ module.exports = async (client, clientSecret) => {
     //Get user data
     let userData = await models.users.findOne({ clientSecret });
     if (!userData) return { error: "Invalid client secret" };
+    if (!userData.translator) userData.translator = {};
 
     //Blacklisted
     if (userData.translator.blacklisted) return { error: "Blacklisted" };
