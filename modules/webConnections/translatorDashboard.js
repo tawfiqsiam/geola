@@ -13,9 +13,11 @@ module.exports = async (client, clientSecret) => {
     //Terms not accepted
     if (!userData.translator.acceptedTerms) return { error: "Terms not accepted" };
 
+    //No language
+    if ((!userData.translator.languages) || (!userData.translator.languages.length)) return { error: "No language" };
+
     //Get translating
-    let translating = null;
-    if (userData.translator.translating) translating = await models.translations.findById(userData.translator.translating, null, { lean: true });
+    let translating = await models.translations.findById(userData.translator.translating, `english ${userData.translator.languages.join(" ")}`, { lean: true });
 
     //Return
     return translating;

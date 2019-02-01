@@ -55,6 +55,7 @@ module.exports = {
     translator: {
         acceptedTerms: Boolean,
         blacklisted: Boolean,
+        languages: [String],
         translating: String
     },
     verified: Boolean
