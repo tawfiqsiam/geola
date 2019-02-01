@@ -41,6 +41,9 @@ module.exports = {
         user: String,
         reason: String
     }],
-    validLanguages: [String],
+    validLanguages: [{
+        name: String,
+        displayName: String
+    }],
     clientSecrets: [String]
 };
