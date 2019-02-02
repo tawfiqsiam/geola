@@ -14,15 +14,15 @@ module.exports = async (client, clientSecret) => {
     //Terms not accepted
     if (!userData.translator.acceptedTerms) return { error: "Terms not accepted" };
 
-    //No languages
-    if ((!userData.translator.languages) || (!userData.translator.languages.length)) {
-        const { validLanguages } = await models.data.findOne();
-        return { error: "No languages", validLanguages };
-    }
+    //Get valid languages
+    const { validLanguages } = await models.data.findOne();
 
-    //Get translating
-    let translating = await models.translations.findById(userData.translator.translating, `english ${userData.translator.languages.join(" ")}`, { lean: true });
+    //No languages
+    if ((!userData.translator.languages) || (!userData.translator.languages.length)) return { error: "No languages", validLanguages };
+
+    //Get phrase
+    let phrase = await models.translations[userData.translator.translating ? "findById" : "findOne"](userData.translator.translating || {}, `english ${userData.translator.languages.join(" ")}`, { lean: true });
 
     //Return
-    return translating;
+    return { phrase, languages: validLanguages.filter(l => userData.translator.languages.includes(l.name)) };
 };
