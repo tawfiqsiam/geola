@@ -21,7 +21,7 @@ module.exports = async ({ client, id, channel, message, emoji, vars }) => {
     if (language !== "english") {
         let translation = await models.translations.findById(id);
         translation = (translation && translation.translations) ? translation.translations.find(t => t.language === language) : null;
-        if (translation) message = translation.translation;
+        if ((translation) && (translation.translation)) message = translation.translation;
     }
 
     //Add vars
