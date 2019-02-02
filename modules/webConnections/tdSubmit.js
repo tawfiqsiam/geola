@@ -38,7 +38,7 @@ module.exports = async (client, data) => {
         .setColor(_.colors.geola)
         .addField("English", translationData.english)
         .addField("Translation", data.translation)
-        .setFooter(`Translation ID: ${translationData._id}`)
+        .addField("Details", `Translation ID: ${translationData._id}\nLanguage: ${language.name}`)
         .setTimestamp();
 
     //Send

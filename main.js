@@ -76,6 +76,7 @@ module.exports = async () => {
         client.developerRole = client.geolasHub.roles.get("425060987578875904");
         client.verifiedRole = client.geolasHub.roles.get("413525830728417280");
         client.translating = client.channels.get("541082684949135361");
+        client.devTranslating = client.channels.get("541352764161130496");
         client.changeLog = client.channels.get("354383167999967234");
         client.alert = client.channels.get("379346160122593280");
         client.alert = client.alert.send.bind(client.alert);

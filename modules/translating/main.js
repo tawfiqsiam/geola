@@ -20,7 +20,4 @@ module.exports = async (client, reaction, user) => {
 
     //Report
     if (reaction.emoji.name === "⚠") translating.report(client, reaction, user);
-
-    //Remove reaction
-    reaction.remove(user);
 };
