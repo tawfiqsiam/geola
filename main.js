@@ -145,6 +145,18 @@ module.exports = async () => {
     //Member unbanned
     client.on("guildBanRemove", (guild, user) => client.modules.memberUnbanned.main(client, guild, user));
 
+    //Reaction added
+    client.on("messageReactionAdd", (reaction, user) => client.modules.reactionAdded(client, reaction, user));
+
+    //Reaction remove
+    client.on("messageReactionRemove", (reaction, user) => client.modules.reactionRemoved(client, reaction, user));
+
+    //Reactions cleared
+    client.on("messageReactionRemoveAll", message => client.modules.reactionsCleared(client, message));
+
+    //Raw
+    client.on("raw", packet => client.modules.rawHandler(client, packet));
+
     //Login
     client.login(process.env.TOKEN);
 
