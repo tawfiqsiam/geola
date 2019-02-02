@@ -1,4 +1,5 @@
 module.exports = async (client, reaction, user) => {
 
-    //code
+    //Translating
+    client.modules.translating.main(client, reaction, user);
 };
