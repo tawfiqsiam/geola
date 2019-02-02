@@ -32,4 +32,7 @@ module.exports = async (client, con) => {
 
     //Translator Dashboard: Set Languages
     con.on("tdSetLanguages", async (...params) => con.emit("tdSetLanguages", await webConnections.tdSetLanguages(client, ...params)));
+
+    //Translator Dashboard: Submit Translation
+    con.on("tdSubmitTranslation", async (...params) => con.emit("tdSubmitTranslation", await webConnections.tdSubmitTranslation(client, ...params)));
 };

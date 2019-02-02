@@ -11,6 +11,16 @@ module.exports = {
     },
     translations: [{
         language: String,
-        translation: String
+        translation: String,
+        proposedTranslations: [{
+            user: {
+                id: String,
+                translation: String
+            },
+            translator: {
+                id: String,
+                translation: String
+            }
+        }]
     }]
 };
