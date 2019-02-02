@@ -15,7 +15,7 @@ module.exports = client => {
 
         let schema = new mongoose.Schema(schemaData, {
             collection: builder,
-            strict: (["stats", "translations"].includes(builder) ? false : "throw")
+            strict: (["stats"].includes(builder) ? false : "throw")
         });
 
         models[builder] = mongoose.model(builder, schema);

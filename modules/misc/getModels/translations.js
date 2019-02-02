@@ -8,5 +8,9 @@ module.exports = {
     english: {
         type: String,
         required: true
-    }
+    },
+    translations: [{
+        language: String,
+        translation: String
+    }]
 };
