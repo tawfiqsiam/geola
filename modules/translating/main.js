@@ -6,6 +6,9 @@ module.exports = async (client, reaction, user) => {
     //Restrict channel
     if (reaction.message.channel.id !== client.translating.id) return;
 
+    //Filter out bots
+    if (user.bot) return;
+
     //Approve
     if (reaction.emoji.name === "✅") translating.approve(client, reaction, user);
 
