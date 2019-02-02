@@ -13,6 +13,7 @@ module.exports = {
         language: String,
         translation: String,
         proposedTranslations: [{
+            message: String,
             user: {
                 id: String,
                 translation: String
