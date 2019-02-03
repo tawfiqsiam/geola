@@ -2,5 +2,6 @@ module.exports = [
     "forbiddenWords",
     "acrs",
     "counting",
-    "botVersion"
+    "botVersion",
+    "translatingMessage"
 ];

@@ -58,5 +58,9 @@ module.exports = {
         languages: [String],
         translating: String
     },
+    verifiedTranslator: {
+        message: String,
+        messageType: String
+    },
     verified: Boolean
 };
