@@ -14,10 +14,10 @@ module.exports = async (client, xp, { server }) => {
     if (!await _.promise(server.fetchMember("159985870458322944"), true)) return;
 
     //Loop through pages
-    for (let i = 0; i < server.memberCount; i++) {
+    for (let i = 0; i < Math.ceil(server.memberCount / 999); i++) {
 
         //Fetch data
-        const data = await (await fetch(`https://mee6.xyz/api/plugins/levels/leaderboard/${server.id}?page=${i}`)).json();
+        const data = await (await fetch(`https://mee6.xyz/api/plugins/levels/leaderboard/${server.id}?limit=999&page=${i}`)).json();
 
         //No more members
         if (!data.players.length) break;
