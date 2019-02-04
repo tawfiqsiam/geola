@@ -3,10 +3,13 @@ module.exports = async (client, message) => {
     //Pre Module
     const { Discord, models, _ } = client.modules.misc.preModule(client);
 
+    //Get translation message
+    const translationMessage = await client.translating.fetchMessage(message.author.data.verifiedTranslator.message);
+
     //Cancel
     if (message.content.toLowerCase().replace(/\s+/g, "") === "cancel") {
-//make it translationMessage.reactions
-        message.reactions.get("✏").remove(message.author);
+
+        translationMessage.reactions.get("✏").remove(message.author);
 
         const sentMessage = await client.translating.send(":white_check_mark:  **|  Canceled!**");
         sentMessage.delete(5000);
@@ -17,11 +20,7 @@ module.exports = async (client, message) => {
         return;
     }
 
-    //Get translation message
-    const translationMessage = await client.translating.fetchMessage(message.author.data.verifiedTranslator.message);
-
-    //Delete messages
-    message.delete();
+    //Delete translation message
     translationMessage.delete();
 
     //Get translation details
@@ -45,7 +44,7 @@ module.exports = async (client, message) => {
     //Embed
     const sendEmbed = new Discord.RichEmbed()
         .setAuthor(EMBED.author.name, EMBED.author.iconURL)
-        .setDescription(EMBED.description)
+        .setDescription(`${EMBED.description}\nEdited by ${message.author.tag} (${message.author.id})`)
         .setColor(EMBED.color)
         .addField(EMBED.fields[0].name, EMBED.fields[0].value)
         .addField(EMBED.fields[1].name, EMBED.fields[1].value)

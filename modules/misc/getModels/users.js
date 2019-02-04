@@ -62,5 +62,9 @@ module.exports = {
         message: String,
         messageType: String
     },
+    devTranslator: {
+        message: String,
+        messageType: String
+    },
     verified: Boolean
 };

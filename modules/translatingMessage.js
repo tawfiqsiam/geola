@@ -12,6 +12,9 @@ module.exports = async (client, message) => {
     //Edit
     if (message.author.data.verifiedTranslator.messageType === "edit") client.modules.translating.editMessage(client, message);
 
+    //Reject
+    if (message.author.data.verifiedTranslator.messageType === "reject") client.modules.translating.rejectMessage(client, message);
+
     //Report
     if (message.author.data.verifiedTranslator.messageType === "report") client.modules.translating.reportMessage(client, message);
 };

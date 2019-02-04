@@ -14,6 +14,7 @@ module.exports = {
         translation: String,
         proposedTranslations: [{
             message: String,
+            reported: Boolean,
             user: {
                 id: String,
                 translation: String
