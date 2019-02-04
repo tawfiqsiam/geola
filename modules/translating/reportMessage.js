@@ -63,6 +63,7 @@ module.exports = async (client, message) => {
         await sentMessage.react("✏");
         await sentMessage.react("❌");
     })();
+    translation.message = sentMessage.id;
 
     //Save
     _.save(client, translationData, message.author.data);

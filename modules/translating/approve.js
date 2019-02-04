@@ -30,6 +30,7 @@ module.exports = async (client, reaction, user) => {
         await message.react("❌");
         await message.react("✴");
     })();
+    translation.message = message.id;
 
     //Save
     _.save(client, translationData);
