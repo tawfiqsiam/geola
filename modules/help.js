@@ -47,7 +47,7 @@ module.exports = async (client, message) => {
         content = `\u2022Basic\n\u2022Fun\n\u2022Mod\n\u2022Misc\n\u2022Bot Features${isDev ? "\n\u2022Owner" : ""}`;
     }
 
-    if (type === "features") content = "\u2022Multiple Autoroles\n\u2022Self-Roles\n\u2022Role/Nickname Remembrance\n\u2022XP/Level Rewards System\n\u2022Server Currency, Items, and Shops\n\u2022Custom Commands\n\u2022Rich Dashboard\n\u2022Global Ban Protection\n\u2022Custom Prefixes";
+    if (type === "features") content = "\u2022Multiple Autoroles\n\u2022Self-Roles\n\u2022Role/Nickname Remembrance\n\u2022XP/Level Rewards System\n\u2022Mee6 XP Importing\n\u2022Server Currency, Items, and Shops\n\u2022Custom Commands\n\u2022Rich Dashboard\n\u2022Global Ban Protection\n\u2022Custom Prefixes";
 
     //Embed
     let embed = new Discord.RichEmbed()
