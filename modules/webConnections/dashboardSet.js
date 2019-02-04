@@ -29,7 +29,7 @@ module.exports = async (client, loginData, data) => {
     for (let d in data) {
 
         let validator = validators[loginData.type] && validators[loginData.type][d];
-        if (validator) validator(
+        if (validator) await validator(
             client,
             data.id ? { id: data.id, data: data[d], allData: data } : data[d],
             { server, channel, member }
