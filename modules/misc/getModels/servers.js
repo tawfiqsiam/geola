@@ -133,5 +133,6 @@ module.exports = {
         }],
         default: []
     },
+    mee6ImportCooldown: Number,
     verified: Boolean
 };

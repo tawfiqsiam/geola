@@ -7,6 +7,9 @@ module.exports = async (client, levelRewards, { server }) => {
     //No level rewards import
     if (!levelRewards) return;
 
+    //Import cooldown not done
+    if (server.data.mee6ImportCooldown > Date.now()) return;
+
     //Mee6 not on server
     if (!await _.promise(server.fetchMember("159985870458322944"), true)) return;
 
@@ -24,4 +27,7 @@ module.exports = async (client, levelRewards, { server }) => {
         if (!levelReward.addRoles) levelReward.addRoles = [];
         if (!levelReward.addRoles.includes(lr.addRoles[0])) levelReward.addRoles.push(lr.addRoles[0]);
     });
+
+    //Set import cooldown
+    server.data.mee6ImportCooldown = Date.now() + 3600000;
 };

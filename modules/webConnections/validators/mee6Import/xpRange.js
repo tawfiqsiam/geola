@@ -6,6 +6,9 @@ module.exports = async (client, xpRange, { server }) => {
     //No xp range
     if (!xpRange) return;
 
+    //Import cooldown not done
+    if (server.data.mee6ImportCooldown > Date.now()) return;
+
     //Mee6 not on server
     if (!await _.promise(server.fetchMember("159985870458322944"), true)) return;
 
@@ -15,4 +18,7 @@ module.exports = async (client, xpRange, { server }) => {
     //Set min/max
     server.data.xp.min = 15;
     server.data.xp.max = 25;
+
+    //Set import cooldown
+    server.data.mee6ImportCooldown = Date.now() + 3600000;
 };

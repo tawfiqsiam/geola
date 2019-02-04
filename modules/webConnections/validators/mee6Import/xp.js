@@ -7,6 +7,9 @@ module.exports = async (client, xp, { server }) => {
     //No xp import
     if (!xp) return;
 
+    //Import cooldown not done
+    if (server.data.mee6ImportCooldown > Date.now()) return;
+
     //Mee6 not on server
     if (!await _.promise(server.fetchMember("159985870458322944"), true)) return;
 
@@ -39,4 +42,7 @@ module.exports = async (client, xp, { server }) => {
             );
         }
     }
+
+    //Set import cooldown
+    server.data.mee6ImportCooldown = Date.now() + 3600000;
 };
