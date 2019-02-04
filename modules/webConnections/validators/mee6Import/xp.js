@@ -19,6 +19,9 @@ module.exports = async (client, xp, { server }) => {
         //Fetch data
         const data = await (await fetch(`https://mee6.xyz/api/plugins/levels/leaderboard/${server.id}?page=${i}`)).json();
 
+        //No more members
+        if (!data.players.length) break;
+
         //Loop through members
         for (let j = 0; j < data.players.length; j++) {
 
