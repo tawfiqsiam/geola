@@ -7,7 +7,7 @@ module.exports = async (client, reaction, user) => {
     reaction.message.delete();
 
     //Get translation details
-    const DETAILS = reaction.message.embeds[0].fields[2].value.split("\n");
+    const DETAILS = reaction.message.embeds[0].fields[reaction.message.embeds[0].fields.length - 1].value.split("\n");
     const id = DETAILS[0].split(":")[1].trim();
     const language = DETAILS[1].split(":")[1].trim();
 

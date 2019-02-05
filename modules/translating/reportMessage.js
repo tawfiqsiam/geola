@@ -35,7 +35,6 @@ module.exports = async (client, message) => {
     const translation = proposedTranslations.find(t => t.message === translationMessage.id);
 
     //Set translator
-    translation.reported = true;
     translation.translator = { id: message.author.id };
 
     //Delete verified translator data
@@ -59,8 +58,7 @@ module.exports = async (client, message) => {
     //Send
     const sentMessage = await client.devTranslating.send(sendEmbed);
     (async () => {
-        await sentMessage.react("✅");
-        await sentMessage.react("✏");
+        await sentMessage.react("✴");
         await sentMessage.react("❌");
     })();
     translation.message = sentMessage.id;

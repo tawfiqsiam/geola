@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
     const id = DETAILS[0].split(":")[1].trim();
     const language = DETAILS[1].split(":")[1].trim();
 
-    //Get translation
+    //Remove translation
     const translationData = await models.translations.findById(id);
     const proposedTranslations = translationData.translations.find(t => t.language === language).proposedTranslations;
     const translation = proposedTranslations.find(t => t.message === translationMessage.id);

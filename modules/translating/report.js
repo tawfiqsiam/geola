@@ -23,7 +23,7 @@ module.exports = async (client, reaction, user) => {
     userData.verifiedTranslator.messageType = "report";
 
     //Send
-    const message = await client.translating.send(`:warning:  **|  ${user}, What is the reason for reporting this translation? Say \`cancel\` to cancel**`);
+    const message = await client.translating.send(`:warning:  **|  ${user}, What is the reason for reporting this user? Say \`cancel\` to cancel**`);
     message.delete(5000);
 
     //Save
