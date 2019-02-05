@@ -27,7 +27,7 @@ module.exports = async (client, reaction, user) => {
     translationLanguage.translation = translation.translator.translation || translation.user.translation;
 
     //Notify submitter
-    const submitterData = await models.users.findById(submitter);
+    const submitterData = await models.users.findById(submitter === user.id ? user.id : submitter);
     if (!submitterData.translator.notifications) submitterData.translator.notifications = [];
     submitterData.translator.notifications.push({
         text: "Translation Approved",
@@ -36,5 +36,5 @@ module.exports = async (client, reaction, user) => {
     });
 
     //Save
-    _.save(client, translationData);
+    _.save(client, translationData, submitterData);
 };

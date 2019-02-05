@@ -43,7 +43,7 @@ module.exports = async (client, message) => {
     message.author.data.devTranslator = undefined;
 
     //Blacklist + notify submitter
-    const submitterData = await models.users.findById(submitter);
+    const submitterData = submitter === message.author.id ? message.author.data : await models.users.findById(submitter);
     submitterData.translator.blacklisted = true;
     if (!submitterData.translator.notifications) submitterData.translator.notifications = [];
     submitterData.translator.notifications.push({
@@ -57,5 +57,5 @@ module.exports = async (client, message) => {
     sentConfirmationMessage.delete(5000);
 
     //Save
-    _.save(client, translationData, message.author.data, submitterData);
+    _.save(client, translationData, message.author.data, submitter !== message.author.id ? submitterData : null);
 };

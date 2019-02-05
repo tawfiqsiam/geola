@@ -43,7 +43,7 @@ module.exports = async (client, message) => {
     message.author.data.verifiedTranslator = undefined;
 
     //Notify submitter
-    const submitterData = await models.users.findById(submitter);
+    const submitterData = submitter === message.author.id ? message.author.data : await models.users.findById(submitter);
     if (!submitterData.translator.notifications) submitterData.translator.notifications = [];
     submitterData.translator.notifications.push({
         text: "Translation Rejected",
@@ -56,5 +56,5 @@ module.exports = async (client, message) => {
     sentConfirmationMessage.delete(5000);
 
     //Save
-    _.save(client, translationData, message.author.data, submitterData);
+    _.save(client, translationData, message.author.data, submitter !== message.author.id ? submitterData : null);
 };
