@@ -22,7 +22,7 @@ module.exports = async (client, clientSecret) => {
     if ((!userData.translator.languages) || (!userData.translator.languages.length)) return { error: "No languages", validLanguages };
 
     //Get phrase
-    let phrase = await models.translations[userData.translator.translating ? "findById" : "findOne"](userData.translator.translating || {}, `english ${userData.translator.languages.join(" ")}`, { lean: true });
+    let phrase = await models.translations.findOne({}, `english ${userData.translator.languages.join(" ")}`, { lean: true });
 
     //Return
     return {
