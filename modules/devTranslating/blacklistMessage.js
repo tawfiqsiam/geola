@@ -23,6 +23,9 @@ module.exports = async (client, message) => {
     //Delete translation message
     translationMessage.delete();
 
+    //Get valid languages
+    const { validLanguages } = await models.data.findOne();
+
     //Get translation details
     const EMBED = translationMessage.embeds[0];
     const DETAILS = EMBED.fields[EMBED.fields.length - 1].value.split("\n");
@@ -39,9 +42,15 @@ module.exports = async (client, message) => {
     //Delete dev translator data
     message.author.data.devTranslator = undefined;
 
-    //Blacklist submitter
+    //Blacklist + notify submitter
     const submitterData = await models.users.findById(submitter);
     submitterData.translator.blacklisted = true;
+    if (!submitterData.translator.notifications) submitterData.translator.notifications = [];
+    submitterData.translator.notifications.push({
+        text: "Blacklisted",
+        info: `You have been blacklisted by ${message.author.tag} due to your ${validLanguages.find(l => l.name === language).displayName} translation for "${id}" with the following reason: ${message.content}`,
+        timestamp: Date.now()
+    });
 
     //Send confirmation
     const sentConfirmationMessage = await client.devTranslating.send(":white_check_mark:  **|  Done!**");

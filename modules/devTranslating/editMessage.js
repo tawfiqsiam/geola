@@ -23,11 +23,15 @@ module.exports = async (client, message) => {
     //Delete translation message
     translationMessage.delete();
 
+    //Get valid languages
+    const { validLanguages } = await models.data.findOne();
+
     //Get translation details
     const EMBED = translationMessage.embeds[0];
     const DETAILS = EMBED.fields[EMBED.fields.length - 1].value.split("\n");
     const id = DETAILS[0].split(":")[1].trim();
     const language = DETAILS[1].split(":")[1].trim();
+    const submitter = EMBED.description.split("\n")[0].split(" ").reverse()[0].replace(/[()]/g, "");
 
     //Remove translation
     const translationData = await models.translations.findById(id);
@@ -41,6 +45,15 @@ module.exports = async (client, message) => {
 
     //Set dev translator data
     message.author.data.devTranslator = undefined;
+
+    //Notify submitter
+    const submitterData = await models.users.findById(submitter);
+    if (!submitterData.translator.notifications) submitterData.translator.notifications = [];
+    submitterData.translator.notifications.push({
+        text: "Translation Approved",
+        info: `Your ${validLanguages.find(l => l.name === language).displayName} translation for "${id}" has been approved by ${message.author.tag}`,
+        timestamp: Date.now()
+    });
 
     //Send confirmation
     const sentConfirmationMessage = await client.devTranslating.send(":white_check_mark:  **|  Done!**");
