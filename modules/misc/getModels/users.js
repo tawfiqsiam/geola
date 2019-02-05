@@ -55,7 +55,12 @@ module.exports = {
     translator: {
         acceptedTerms: Boolean,
         blacklisted: Boolean,
-        languages: [String]
+        languages: [String],
+        notifications: [{
+            text: String,
+            timestamp: Number
+        }],
+        lastNotificationsCheck: Number
     },
     verifiedTranslator: {
         message: String,

@@ -24,5 +24,10 @@ module.exports = async (client, clientSecret) => {
     let phrase = await models.translations[userData.translator.translating ? "findById" : "findOne"](userData.translator.translating || {}, `english ${userData.translator.languages.join(" ")}`, { lean: true });
 
     //Return
-    return { phrase, languages: validLanguages.filter(l => userData.translator.languages.includes(l.name)) };
+    return {
+        phrase,
+        languages: validLanguages.filter(l => userData.translator.languages.includes(l.name)),
+        notifications: userData.translator.notifications,
+        lastNotificationsCheck: userData.translator.lastNotificationsCheck
+    };
 };
