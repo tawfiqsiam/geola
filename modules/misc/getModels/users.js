@@ -58,6 +58,7 @@ module.exports = {
         languages: [String],
         notifications: [{
             text: String,
+            info: String,
             timestamp: Number
         }],
         lastNotificationsCheck: Number
