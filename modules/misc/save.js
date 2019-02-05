@@ -4,6 +4,9 @@ module.exports = async (client, ...docs) => {
     const { models } = client.modules.misc.preModule(client);
     const saving = [];
 
+    //Filter docs
+    docs = docs.filter(d => d);
+
     //Loop through each doc
     for (let doc of docs) {
 
