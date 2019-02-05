@@ -60,6 +60,11 @@ module.exports = async (client, data) => {
         }
     });
 
+    //Set next translation if needed
+    userData.translator.nextTranslation = userData.translator.languages.filter(l => translationData.translations.find(t => (t.language === l) && ((t.translation) || (t.proposedTranslations.length)))).length < userData.translator.languages.length ?
+        data.id :
+        undefined;
+
     //Save
-    await _.save(client, translationData);
+    await _.save(client, translationData, userData);
 };

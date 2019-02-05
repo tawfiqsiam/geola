@@ -57,6 +57,7 @@ module.exports = {
         acceptedTerms: Boolean,
         blacklisted: Boolean,
         languages: [String],
+        nextTranslation: String,
         notifications: [{
             text: String,
             info: String,
