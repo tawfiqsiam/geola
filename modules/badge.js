@@ -55,6 +55,8 @@ module.exports = async (client, message) => {
         "Lucky I": ["luckyi", "lucky1"],
         "Lucky II": ["luckyii", "lucky2"],
         "Lucky III": ["luckyiii", "lucky3"],
+        "Translator": ["translator"],
+        "Verified Translator": ["verifiedtranslator", "vtranslator", "translatorverified", "translatorv"]
     };
 
     let badgeValid = false;

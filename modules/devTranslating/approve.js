@@ -26,13 +26,28 @@ module.exports = async (client, reaction, user) => {
     //Set translation
     translationLanguage.translation = translation.translator.translation || translation.user.translation;
 
-    //Notify submitter
+    //Get submitter data
     const submitterData = await models.users.findById(submitter === user.id ? user.id : submitter);
+
+    //Notify submitter
     if (!submitterData.translator.notifications) submitterData.translator.notifications = [];
     submitterData.translator.notifications.push({
         text: "Translation Approved",
         info: `Your ${validLanguages.find(l => l.name === language).displayName} translation for "${id}" has been approved by ${user.tag}`,
         timestamp: Date.now()
+    });
+
+    //Add to stats
+    submitterData.stats.translations = submitterData.stats.translations + 1 || 1;
+
+    //Add badge
+    const submitterUser = client.users.get(submitter) || await client.fetchUser(submitter);
+    submitterUser.data = submitterData;
+    await _.badge({
+        client,
+        action: "add",
+        user: submitterUser,
+        name: "Translator"
     });
 
     //Save

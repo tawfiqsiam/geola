@@ -44,7 +44,8 @@ module.exports = {
         type: {
             commandsUsed: Number,
             selfProfileChecks: Number,
-            logs: Number
+            logs: Number,
+            translations: Number
         },
         default: {}
     },
