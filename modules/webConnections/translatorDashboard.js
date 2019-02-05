@@ -1,7 +1,7 @@
 module.exports = async (client, clientSecret) => {
 
     //Pre Module
-    const { models } = client.modules.misc.preModule(client);
+    const { models, _ } = client.modules.misc.preModule(client);
 
     //Get user data
     let userData = await models.users.findOne({ clientSecret });
@@ -10,6 +10,7 @@ module.exports = async (client, clientSecret) => {
 
     //Blacklisted
     if (userData.translator.blacklisted) return { error: "Blacklisted" };
+    if (await _.blacklisted(client, (client.users.get(userData._id) || await client.fetchUser(userData._id)))) return { error: "Blacklisted" };
 
     //Terms not accepted
     if (!userData.translator.acceptedTerms) return { error: "Terms not accepted" };

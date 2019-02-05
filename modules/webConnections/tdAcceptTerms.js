@@ -10,6 +10,7 @@ module.exports = async (client, clientSecret) => {
 
     //Blacklisted
     if (userData.translator.blacklisted) return;
+    if (await _.blacklisted(client, (client.users.get(userData._id) || await client.fetchUser(userData._id)))) return;
 
     //Terms already accepted
     if (userData.translator.acceptedTerms) return;
