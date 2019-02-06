@@ -661,6 +661,22 @@ module.exports = [
         usage: "globalban <Add | Remove> <User> <Reason (Add)>"
     },
     {
+        file: "vars",
+        name: "Variables",
+        access: "owner",
+        inputs: ["vars", "variables"],
+        type: "owner",
+        usage: "vars <Phrase>"
+    },
+    {
+        file: "setVar",
+        name: "Set Variable",
+        access: "owner",
+        inputs: ["setvar", "setvariable", "varset", "variableset", "var"],
+        type: "owner",
+        usage: `setvar <"Phrase"> <Number> <Text>`
+    },
+    {
         file: "backup",
         name: "Backup",
         access: "owner",

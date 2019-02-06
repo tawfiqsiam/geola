@@ -9,6 +9,11 @@ module.exports = {
         type: String,
         required: true
     },
+    vars: [{
+        number: Number,
+        text: String
+    }],
+    varCount: Number,
     translations: [{
         language: String,
         translation: String,

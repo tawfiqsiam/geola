@@ -25,7 +25,10 @@ module.exports = async (client, clientSecret) => {
     let phrase = await models.translations.findOne(
         userData.translator.nextTranslation ?
             { _id: userData.translator.nextTranslation } :
-            { "translations.language": { $nin: userData.translator.languages } },
+            {
+                "translations.language": { $nin: userData.translator.languages },
+                $expr: { vars: { $size: "$varCount" } }
+            },
         `english ${userData.translator.languages.join(" ")}`,
         { lean: true }
     );
