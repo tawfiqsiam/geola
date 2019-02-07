@@ -27,7 +27,19 @@ module.exports = async (client, clientSecret) => {
             { _id: userData.translator.nextTranslation } :
             {
                 "translations.language": { $nin: userData.translator.languages },
-                $expr: { vars: { $size: "$varCount" } }
+                $or: [
+                    { varCount: 0, vars: null },
+                    {
+                        $and: [
+                            { vars: { $exists: true } },
+                            {
+                                $expr: {
+                                    $eq: [{ $size: "$vars" }, "$varCount"]
+                                }
+                            }
+                        ]
+                    }
+                ]
             },
         `english ${userData.translator.languages.join(" ")}`,
         { lean: true }
