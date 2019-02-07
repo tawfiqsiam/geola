@@ -41,7 +41,7 @@ module.exports = async (client, clientSecret) => {
                     }
                 ]
             },
-        `english ${userData.translator.languages.join(" ")}`,
+        `english vars ${userData.translator.languages.join(" ")}`,
         { lean: true }
     );
 
