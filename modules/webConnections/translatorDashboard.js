@@ -15,14 +15,14 @@ module.exports = async (client, clientSecret) => {
     //Terms not accepted
     if (!userData.translator.acceptedTerms) return { error: "Terms not accepted" };
 
-    //Tutorial not finished
-    if (!userData.translator.finishedTutorial) return { error: "Tutorial not finished" };
-
     //Get valid languages
     const { validLanguages } = await models.data.findOne();
 
     //No languages
     if ((!userData.translator.languages) || (!userData.translator.languages.length)) return { error: "No languages", validLanguages };
+
+    //Tutorial not finished
+    if (!userData.translator.finishedTutorial) return { error: "Tutorial not finished" };
 
     //Get phrase
     let phrase = await models.translations.findOne(
