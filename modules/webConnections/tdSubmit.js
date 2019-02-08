@@ -59,6 +59,7 @@ module.exports = async (client, data) => {
             translation: data.translation
         }
     });
+    translation.lastProposal = Date.now();
 
     //Set next translation if needed
     userData.translator.nextTranslation = userData.translator.languages.filter(l => translationData.translations.find(t => (t.language === l) && ((t.translation) || (t.proposedTranslations.length)))).length < userData.translator.languages.length ?

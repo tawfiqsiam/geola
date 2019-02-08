@@ -9,6 +9,7 @@ module.exports = {
         type: String,
         required: true
     },
+    lastEdit: Number,
     vars: [{
         number: Number,
         text: String
@@ -17,6 +18,7 @@ module.exports = {
     translations: [{
         language: String,
         translation: String,
+        lastProposal: Number,
         proposedTranslations: [{
             message: String,
             user: {

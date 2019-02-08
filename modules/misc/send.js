@@ -12,14 +12,15 @@ module.exports = async ({ client, id, channel, message, emoji, vars }) => {
     if (!vars) vars = [];
 
     //Add to DB
-    await models.translations.findByIdAndUpdate(
-        id,
+    const modified = await models.translations.updateOne(
+        { _id: id },
         {
             english: message,
             varCount: (message.match(/{VAR.}/g) || []).length
         },
         { upsert: true }
     );
+    if ((modified.nModified) || (modified.upserted)) models.translations.findByIdAndUpdate(id, { lastEdit: Date.now() }).exec();
 
     //Get language
     let language = channel.data.language || channel.guild.data.language;

@@ -26,16 +26,41 @@ module.exports = async (client, clientSecret) => {
         userData.translator.nextTranslation ?
             { _id: userData.translator.nextTranslation } :
             {
-                "translations.language": { $nin: userData.translator.languages },
-                $or: [
-                    { varCount: 0, vars: null },
+                $and: [
                     {
-                        $and: [
-                            { vars: { $exists: true } },
+                        $or: [
+                            { "translations.language": { $nin: userData.translator.languages } },
                             {
                                 $expr: {
-                                    $eq: [{ $size: "$vars" }, "$varCount"]
+                                    $gte: [
+                                        {
+                                            $size: {
+                                                $filter: {
+                                                    input: "$translations",
+                                                    cond: {
+                                                        $lte: ["$$this.lastProposal", "$lastEdit"]
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        1
+                                    ]
                                 }
+                            }
+                        ]
+                    },
+                    {
+                        $or: [
+                            { varCount: 0, vars: null },
+                            {
+                                $and: [
+                                    { vars: { $exists: true } },
+                                    {
+                                        $expr: {
+                                            $eq: [{ $size: "$vars" }, "$varCount"]
+                                        }
+                                    }
+                                ]
                             }
                         ]
                     }
