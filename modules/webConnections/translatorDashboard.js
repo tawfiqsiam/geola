@@ -15,6 +15,9 @@ module.exports = async (client, clientSecret) => {
     //Terms not accepted
     if (!userData.translator.acceptedTerms) return { error: "Terms not accepted" };
 
+    //Tutorial not finished
+    if (!userData.translator.finishedTutorial) return { error: "Tutorial not finished" };
+
     //Get valid languages
     const { validLanguages } = await models.data.findOne();
 

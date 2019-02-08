@@ -55,6 +55,7 @@ module.exports = {
     refreshToken: String,
     translator: {
         acceptedTerms: Boolean,
+        finishedTutorial: Boolean,
         blacklisted: Boolean,
         languages: [String],
         nextTranslation: String,

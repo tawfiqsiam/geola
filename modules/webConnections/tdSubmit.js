@@ -22,6 +22,9 @@ module.exports = async (client, data) => {
     //Terms not accepted
     if (!userData.translator.acceptedTerms) return;
 
+    //Tutorial not finished
+    if (!userData.translator.finishedTutorial) return;
+
     //Invalid language
     const { validLanguages } = await models.data.findOne();
     const language = validLanguages.find(l => l.name === data.language);

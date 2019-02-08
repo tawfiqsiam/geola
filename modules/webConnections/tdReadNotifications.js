@@ -15,6 +15,9 @@ module.exports = async (client, clientSecret) => {
     //Terms not accepted
     if (!userData.translator.acceptedTerms) return;
 
+    //Tutorial not finished
+    if (!userData.translator.finishedTutorial) return;
+
     //Set last notifications check
     userData.translator.lastNotificationsCheck = Date.now();
 
