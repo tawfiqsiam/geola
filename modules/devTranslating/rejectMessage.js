@@ -35,9 +35,14 @@ module.exports = async (client, message) => {
 
     //Remove translation
     const translationData = await models.translations.findById(id);
-    const proposedTranslations = translationData.translations.find(t => t.language === language).proposedTranslations;
+    const translationLanguage = translationData.translations.find(t => t.language === language);
+    const proposedTranslations = translationLanguage.proposedTranslations;
     const translation = proposedTranslations.find(t => t.message === translationMessage.id);
     proposedTranslations.splice(proposedTranslations.indexOf(translation), 1);
+
+    //Set new last proposal
+    translationLanguage.lastProposal = Math.max(...proposedTranslations.map(t => t.timestamp));
+    if (translationLanguage.lastProposal === -Infinity) translationLanguage.lastProposal = undefined;
 
     //Set translator data
     message.author.data.devTranslator = undefined;

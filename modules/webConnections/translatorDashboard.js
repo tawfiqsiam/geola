@@ -74,14 +74,25 @@ module.exports = async (client, clientSecret) => {
                     }
                 ]
             },
-        "english vars translations",
+        null,
         { lean: true }
     );
+
+    //No translations needed
+    if (!phrase) return { error: "No translations needed" };
+
+    //Get needed languages
+    const neededLanguages = userData.translator.languages.filter(l => {
+        if (!phrase.translations) return true;
+        let translation = phrase.translations.find(t => t.language === l);
+        return (!translation) || (!translation.lastProposal) || (translation.lastProposal <= phrase.lastEdit);
+    });
+    delete phrase.translations;
 
     //Return
     return {
         phrase,
-        languages: validLanguages.filter(l => userData.translator.languages.includes(l.name)),
+        neededLanguages: validLanguages.filter(l => neededLanguages.includes(l.name)),
         notifications: userData.translator.notifications,
         lastNotificationsCheck: userData.translator.lastNotificationsCheck
     };

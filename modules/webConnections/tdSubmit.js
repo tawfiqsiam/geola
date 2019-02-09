@@ -57,6 +57,7 @@ module.exports = async (client, data) => {
     //Add to proposed translations
     translation.proposedTranslations.push({
         message: message.id,
+        timestamp: Date.now(),
         user: {
             id: userData._id,
             translation: data.translation

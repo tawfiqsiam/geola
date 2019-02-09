@@ -21,6 +21,7 @@ module.exports = {
         lastProposal: Number,
         proposedTranslations: [{
             message: String,
+            timestamp: Number,
             user: {
                 id: String,
                 translation: String
