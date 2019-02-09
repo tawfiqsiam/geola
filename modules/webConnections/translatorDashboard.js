@@ -92,6 +92,7 @@ module.exports = async (client, clientSecret) => {
     //Return
     return {
         phrase,
+        validLanguages,
         neededLanguages: validLanguages.filter(l => neededLanguages.includes(l.name)),
         notifications: userData.translator.notifications,
         lastNotificationsCheck: userData.translator.lastNotificationsCheck
