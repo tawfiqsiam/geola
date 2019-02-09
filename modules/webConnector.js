@@ -33,6 +33,9 @@ module.exports = async (client, con) => {
     //Translator Dashboard: Set Languages
     con.on("tdSetLanguages", async (...params) => con.emit("tdSetLanguages", await webConnections.tdSetLanguages(client, ...params)));
 
+    //Translator Dashboard: Finish Tutorial
+    con.on("tdFinishTutorial", async (...params) => con.emit("tdFinishTutorial", await webConnections.tdFinishTutorial(client, ...params)));
+
     //Translator Dashboard: Read Notifications
     con.on("tdReadNotifications", async (...params) => con.emit("tdReadNotifications", await webConnections.tdReadNotifications(client, ...params)));
 
