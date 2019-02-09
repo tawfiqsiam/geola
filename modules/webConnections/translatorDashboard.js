@@ -22,7 +22,7 @@ module.exports = async (client, clientSecret) => {
     if ((!userData.translator.languages) || (!userData.translator.languages.length)) return { error: "No languages", validLanguages };
 
     //Tutorial not finished
-    if (!userData.translator.finishedTutorial) return { error: "Tutorial not finished", languages: userData.translator.languages };
+    if (!userData.translator.finishedTutorial) return { error: "Tutorial not finished", languages: validLanguages.filter(l => userData.translator.languages.includes(l.name)) };
 
     //Get phrase
     let phrase = await models.translations.findOne(
