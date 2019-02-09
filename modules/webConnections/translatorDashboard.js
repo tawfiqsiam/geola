@@ -7,6 +7,7 @@ module.exports = async (client, clientSecret) => {
     let userData = await models.users.findOne({ clientSecret });
     if (!userData) return { error: "Invalid client secret" };
     if (!userData.translator) userData.translator = {};
+    const user = client.users.get(userData._id) || await client.fetchUser(userData._id);
 
     //Blacklisted
     if (userData.translator.blacklisted) return { error: "Blacklisted" };
@@ -22,7 +23,11 @@ module.exports = async (client, clientSecret) => {
     if ((!userData.translator.languages) || (!userData.translator.languages.length)) return { error: "No languages", validLanguages };
 
     //Tutorial not finished
-    if (!userData.translator.finishedTutorial) return { error: "Tutorial not finished", languages: validLanguages.filter(l => userData.translator.languages.includes(l.name)) };
+    if (!userData.translator.finishedTutorial) return {
+        error: "Tutorial not finished",
+        userTag: `${user.username}#${user.discriminator}`,
+        languages: validLanguages.filter(l => userData.translator.languages.includes(l.name))
+    };
 
     //Get phrase
     let phrase = await models.translations.findOne(
