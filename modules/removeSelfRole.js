@@ -45,7 +45,7 @@ module.exports = async (client, message) => {
     //User doesn't have role
     if (!message.member.roles.has(role.id)) return _.send({
         client,
-        id: "removeselfrole role already added",
+        id: "removeselfrole role not added",
         channel: message.channel,
         message: "You don't have the {VAR1} role!",
         emoji: "x",

@@ -88,7 +88,7 @@ module.exports = async (client, message) => {
     //Send
     _.send({
         client,
-        id: "removeitem item added",
+        id: "removeitem item removed",
         channel: message.channel,
         message: "{VAR1} now has {VAR2} less {VAR3}!",
         emoji: "white_check_mark",
