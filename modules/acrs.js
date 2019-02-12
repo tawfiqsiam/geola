@@ -45,9 +45,9 @@ module.exports = async (client, message) => {
         client,
         id: "acrs not enough currency",
         channel: message.channel,
-        message: "This command requires you to have {VAR1} {VAR2} but you only have {VAR3} {VAR2}!",
+        message: "This command requires you to have {VAR1} {VAR2} but you only have {VAR3} {VAR4}!",
         emoji: "x",
-        vars: [acr.removeCurrency, message.guild.data.currencyName, memberData.currency]
+        vars: [acr.removeCurrency, message.guild.data.currencyName, memberData.currency, message.guild.data.currencyName]
     });
 
     //No enough roles

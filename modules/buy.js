@@ -78,9 +78,9 @@ module.exports = async (client, message) => {
         client,
         id: "buy this bitch too poor",
         channel: message.channel,
-        message: "The price is {VAR1} {VAR3} but you only have {VAR2} {VAR3}!",
+        message: "The price is {VAR1} {VAR2} but you only have {VAR3} {VAR4}!",
         emoji: "x",
-        vars: [price, memberData.currency, message.guild.data.currencyName]
+        vars: [price, message.guild.data.currencyName, memberData.currency, message.guild.data.currencyName]
     });
 
     //Remove currency
