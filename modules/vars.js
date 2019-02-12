@@ -42,7 +42,8 @@ module.exports = async (client, message) => {
     //Embed
     const embed = new Discord.RichEmbed()
         .setTitle(`Variables for "${translationData._id}"`)
-        .setDescription(variables)
+        .setDescription(translationData.english)
+        .addField("Variables", variables)
         .setColor(_.colors.geola);
 
     //Send
