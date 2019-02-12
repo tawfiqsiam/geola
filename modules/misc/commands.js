@@ -330,6 +330,14 @@ module.exports = [
         usage: "deleteemoji <Emoji>"
     },
     {
+        file: "stealEmoji",
+        name: "Steal Emoji",
+        access: "everyone",
+        inputs: ["stealemoji", "robemoji", "emojisteal", "emojirob"],
+        type: "fun",
+        usage: "stealemoji <Emoji> <Server>"
+    },
+    {
         file: "editServer",
         name: "Edit Server",
         access: "mod",
