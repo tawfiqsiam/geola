@@ -68,7 +68,7 @@ module.exports = async (client, message) => {
     if (!bot) {
 
         //Get data
-        let self = "--" || await models.users.countDocuments({
+        let self = await models.users.countDocuments({
             bot,
             [type === "xp" ? "xp.totalXP" : "cubits"]: { $gte: type === "xp" ? message.author.data.xp.totalXP : message.author.data.cubits }
         });

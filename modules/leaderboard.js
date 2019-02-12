@@ -69,7 +69,7 @@ module.exports = async (client, message) => {
     if (!bot) {
 
         //Get data
-        let self = "--" || await models.members.countDocuments({
+        let self = await models.members.countDocuments({
             "_id.server": message.guild.id,
             bot,
             [type === "xp" ? "xp.totalXP" : "currency"]: { $gte: type === "xp" ? message.member.data.xp.totalXP : message.member.data.currency }
