@@ -65,7 +65,7 @@ module.exports = async (client, message) => {
     });
 
     //Create emoji
-    const created = await _.promise(server.createEmoji(emoji.url, emoji.name));
+    const created = await _.promise(server.createEmoji(emoji.url, emoji.name), true);
 
     //Created
     if (created) _.send({
