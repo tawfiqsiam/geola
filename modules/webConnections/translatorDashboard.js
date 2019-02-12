@@ -77,7 +77,7 @@ module.exports = async (client, clientSecret) => {
     );
 
     //No translations needed
-    if (!phrase) return { error: "No translations needed" };
+    if (!phrase.length) return { error: "No translations needed" };
 
     //Get needed languages
     const neededLanguages = userData.translator.languages.filter(l => {
