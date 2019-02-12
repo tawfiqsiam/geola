@@ -1,62 +1,46 @@
 module.exports = async (client, message) => {
 
     //Pre Module
-    /* const { models, _ } = client.modules.misc.preModule(client); */
+    const { models, _ } = client.modules.misc.preModule(client);
 
     //Check perms
     if (!message.member.hasPermission("MANAGE_GUILD")) return;
 
-    //Languages disabled
-    message.channel.send(":information_source:  **|  Unfortunately, since the entire bot's code has recently been rewritten, all translations have been deleted. However, we are setting up a new system for anyone to contribute to translations. If you would like to stay updated, watch out for updates in the `#dev-updates` channel of my Hub (support server) at <https://discord.gg/eCDafVC>**");
-
-    /* //Get command params
+    //Get command params
     const PARAMS = message.content.split(" ");
     let language = PARAMS.slice(1, 2).join(" ").toLowerCase();
     let channel = PARAMS.slice(2).join(" ");
 
+    //Get valid languages
+    const { validLanguages } = await models.data.findOne();
+    validLanguages.push({
+        name: "english",
+        displayName: "English",
+        inputs: ["", "english", "en"],
+        public: true
+    });
+
     //Parse language
-    const languages = {
-        "english": {
-            name: "English",
-            inputs: ["english", "en", ""]
-        },
-        "german": {
-            name: "Deutsch",
-            inputs: ["german", "de", "deutsch"]
-        },
-        "dutch": {
-            name: "Nederlands",
-            inputs: ["dutch", "ne", "nederlands"]
-        },
-        "spanish": {
-            name: "Español",
-            inputs: ["spanish", "es", "espanol", "español"]
-        },
-        "french": {
-            name: "Français",
-            inputs: ["french", "fr", "francais", "français"]
-        },
-        "portuguese": {
-            name: "Português",
-            inputs: ["portuguese", "pt", "portugues", "português"]
-        }
-    };
+    language = validLanguages.find(l => l.inputs.includes(language));
 
-    let languageValid = false;
-    for (let l in languages) if (languages[l].inputs.includes(language)) {
-        language = l;
-        languageValid = true;
-        break;
-    }
-
-    //Invalid language
-    if (!languageValid) return _.send({
+    //No language
+    if (!language) return _.send({
         client,
         id: "setlanguage invalid language",
         channel: message.channel,
-        message: "We currently don't support that language! If you would like to become a translator, please DM {VAR1} (my creator)",
+        message: "We currently don't support that language! If you would like to become a translator, please DM `{VAR1}` (my creator)",
         emoji: "x",
         vars: ["APixel Visuals#2820"]
+    });
+
+    //Not public
+    if (!language.public) return _.send({
+        client,
+        id: "setlanguage language not public",
+        channel: message.channel,
+        message: "This language is still being translated! If you are fluent in both English and {VAR1}, feel free to contribute to the translations at http://geolabot.com/translate",
+        emoji: "x",
+        vars: [language.displayName]
     });
 
     //Parse channel
@@ -73,24 +57,26 @@ module.exports = async (client, message) => {
     }
 
     //Get data
-    const data = channel ? await models.channels.findById(channel.id) : message.guild.data;
+    const data = channel ?
+        (channel.id === message.channel.id ? message.channel.data : await models.channels.findById(channel.id)) :
+        message.guild.data;
 
     //Language is already set
-    if (data.language === language) return _.send({
+    if (data.language === language.name) return _.send({
         client,
         id: "setlanguage already set",
         channel: message.channel,
         message: "The language is already set as {VAR1}!",
         emoji: "x",
-        vars: [languages[language].name]
+        vars: [language.displayName]
     });
 
     //Set language
-    data.language = language;
+    data.language = language.name;
     if ((channel) && (data.language === "english")) data.language = undefined;
 
     //Save doc
-    await _.save(client, data);
+    if ((!channel) || (channel.id !== message.channel.id)) await _.save(client, data);
 
     //Send
     _.send({
@@ -99,6 +85,6 @@ module.exports = async (client, message) => {
         channel: message.channel,
         message: "The language has been set to {VAR1}!",
         emoji: "white_check_mark",
-        vars: [languages[language].name]
-    }); */
+        vars: [language.displayName]
+    });
 };

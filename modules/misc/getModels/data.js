@@ -43,7 +43,9 @@ module.exports = {
     }],
     validLanguages: [{
         name: String,
-        displayName: String
+        displayName: String,
+        inputs: [String],
+        public: Boolean
     }],
     clientSecrets: [String]
 };

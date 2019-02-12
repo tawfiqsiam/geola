@@ -30,7 +30,7 @@ module.exports = async (client, clientSecret) => {
     };
 
     //Get phrase
-    let phrase = await models.translations.findOne(
+    let phrase = await models.translations.find(
         userData.translator.nextTranslation ?
             { _id: userData.translator.nextTranslation } :
             {
@@ -73,9 +73,7 @@ module.exports = async (client, clientSecret) => {
                         ]
                     }
                 ]
-            },
-        null,
-        { lean: true }
+            }
     );
 
     //No translations needed
@@ -91,8 +89,9 @@ module.exports = async (client, clientSecret) => {
 
     //Return
     return {
-        phrase,
+        phrase: phrase[Math.floor(Math.random() * phrase.length)],
         validLanguages,
+        userLanguages: validLanguages.filter(l => userData.translator.languages.includes(l.name)),
         neededLanguages: validLanguages.filter(l => neededLanguages.includes(l.name)),
         notifications: userData.translator.notifications,
         lastNotificationsCheck: userData.translator.lastNotificationsCheck
