@@ -8,9 +8,27 @@ module.exports = async (client, message) => {
 
     //Get command params
     let phrase = message.content.split(" ").slice(1).join(" ");
+    if (phrase === "") phrase = null;
 
     //Get translation data
-    const translationData = await models.translations.findById(phrase);
+    const translationData = await models.translations.findOne(
+        phrase ?
+            { _id: phrase } :
+            {
+                varCount: { $gt: 0 },
+                $or: [
+                    {
+                        vars: { $exists: false }
+                    },
+                    {
+                        vars: { $exists: true },
+                        $expr: {
+                            $ne: [{ $size: "$vars" }, "$varCount"]
+                        }
+                    }
+                ]
+            }
+    );
     if (!translationData) return message.channel.send(":x:  **|  That phrase doesn't exist!**");
 
     //Parse vars
