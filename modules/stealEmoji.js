@@ -39,7 +39,7 @@ module.exports = async (client, message) => {
     });
 
     //Get server object
-    server = _.findServer(client, server);
+    server = client.guilds.get(server);
 
     //Get member object
     let member;
@@ -50,7 +50,7 @@ module.exports = async (client, message) => {
         client,
         id: "stealemoji no server or member",
         channel: message.channel,
-        message: "I couldn't find that server! Make sure that both of us are on it",
+        message: "I couldn't find that server! Make sure that both of us are on it, and that you are using a server ID",
         emoji: "x"
     });
 
