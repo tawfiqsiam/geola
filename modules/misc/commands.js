@@ -335,7 +335,7 @@ module.exports = [
         access: "everyone",
         inputs: ["stealemoji", "robemoji", "emojisteal", "emojirob"],
         type: "fun",
-        usage: "stealemoji <Emoji> <Server>"
+        usage: "stealemoji <Emoji> <Server ID>"
     },
     {
         file: "editServer",
