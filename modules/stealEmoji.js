@@ -3,6 +3,9 @@ module.exports = async (client, message) => {
     //Pre Module
     const { _ } = client.modules.misc.preModule(client);
 
+    //Pre command
+    if (!await _.preCommand(client, message, "Steal Emoji", 3000)) return;
+
     //Get params
     const PARAMS = message.content.split(" ");
     let emoji = PARAMS.slice(1, 2).join(" ");
@@ -93,4 +96,7 @@ module.exports = async (client, message) => {
         emoji: "x",
         vars: [server.name]
     });
+
+    //Post command
+    await _.postCommand(client, message, "Steal Emoji");
 };
