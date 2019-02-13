@@ -54,6 +54,16 @@ module.exports = async (client, message) => {
         emoji: "x"
     });
 
+    //Server is the same
+    if (server.id === message.guild.id) return _.send({
+        client,
+        id: "stealemoji server is the same",
+        channel: message.channel,
+        message: "What's the point of stealing from yourself? {VAR1}",
+        emoji: "x",
+        vars: [client.emojis.get("503275261987520522")] //:waitwtf:
+    });
+
     //No perms
     if (!member.hasPermission("MANAGE_EMOJIS")) return _.send({
         client,
