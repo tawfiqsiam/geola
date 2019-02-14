@@ -26,7 +26,7 @@ module.exports = async (client, code) => {
     const userID = JSON.parse(await result.text()).id;
 
     //Get user data
-    const userData = await models.users.findById(userID);
+    const userData = await models.users.findByIdAndUpdate(userID, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
 
     //Generate + save client secret
     const clientSecret = await _.generateClientSecret(client);
