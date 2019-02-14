@@ -427,15 +427,6 @@ module.exports = [
         noPrefix: true
     },
     {
-        file: "talk",
-        name: "Talk",
-        access: "everyone",
-        inputs: [],
-        type: "fun",
-        usage: "<@298920361548840960> <Words>",
-        noPrefix: true
-    },
-    {
         file: "reputation",
         name: "Reputation",
         access: "everyone",
