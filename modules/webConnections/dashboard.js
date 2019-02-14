@@ -38,17 +38,30 @@ module.exports = async (client, data) => {
         xpBlacklisted: Boolean(m.xp.blacklisted)
     });
 
-    //Parse server data
+    //Parse server data: Main
     const serverDataLean = serverData.toObject();
     serverDataLean.name = server.name;
-    serverDataLean.channels = textChannels.map(c => Object.assign({ id: c.id, name: c.name }, channelData[c.id]));
-    serverDataLean.roles = server.roles.filter(r => (r.id !== server.id) && (!r.managed)).map(r => ({ id: r.id, name: r.name }));
+
+    //Parse server data: Channels
+    serverDataLean.channels = textChannels
+        .map(c => Object.assign({ id: c.id, name: c.name }, channelData[c.id]))
+        .sort((a, b) => server.channels.get(a.id).calculatedPosition - server.channels.get(b.id).calculatedPosition);
+
+    //Parse server data: Roles
+    serverDataLean.roles = server.roles
+        .filter(r => (r.id !== server.id) && (!r.managed))
+        .map(r => ({ id: r.id, name: r.name }))
+        .sort((a, b) => server.roles.get(b.id).calculatedPosition - server.roles.get(a.id).calculatedPosition);
+
+    //Parse server data: Members
     serverDataLean.members = server.members.map(m => ({
         id: m.id,
         tag: m.user.tag,
         currency: memberData[m.id] && memberData[m.id].currency,
         xpBlacklisted: memberData[m.id] && memberData[m.id].xpBlacklisted
     }));
+
+    //Parse server data: Commands
     serverDataLean.commands = _.commands.filter(c => (c.access === "everyone") && (!c.noToggle)).map(c => c.name);
 
     //Return
