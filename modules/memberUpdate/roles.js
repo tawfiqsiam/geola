@@ -13,7 +13,7 @@ module.exports = async (client, oldMember, newMember) => {
     newRoles.splice(newRoles.indexOf(newMember.guild.id), 1);
 
     //Role remembrance
-    const memberData = await models.members.findById({ server: newMember.guild.id, user: newMember.id });
+    const memberData = await models.members.findByIdAndUpdate({ server: newMember.guild.id, user: newMember.id }, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
     memberData.roles = newRoles;
     await _.save(client, memberData);
 

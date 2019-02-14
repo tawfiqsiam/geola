@@ -7,7 +7,7 @@ module.exports = async (client, oldMember, newMember) => {
     const serverData = await models.servers.findById(newMember.guild.id);
 
     //Nickname remembrance
-    const memberData = await models.members.findById({ server: newMember.guild.id, user: newMember.id });
+    const memberData = await models.members.findByIdAndUpdate({ server: newMember.guild.id, user: newMember.id }, {}, { upsert: true, setDefaultsOnInsert: true, new: true });
     memberData.nickname = newMember.nickname || undefined;
     await _.save(client, memberData);
 
