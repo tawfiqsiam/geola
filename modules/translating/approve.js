@@ -14,10 +14,12 @@ module.exports = async (client, reaction, user) => {
 
     //Get translation
     const translationData = await models.translations.findById(id);
-    const translation = translationData.translations.find(t => t.language === language).proposedTranslations.find(t => t.message === reaction.message.id);
+    const translationLanguage = translationData.translations.find(t => t.language === language);
+    const translation = translationLanguage.proposedTranslations.find(t => t.message === reaction.message.id);
 
     //Set translator
     translation.translator = { id: user.id };
+    translationLanguage.pendingProposals = translationLanguage.pendingProposals - 1;
 
     //Embed
     const sendEmbed = new Discord.RichEmbed(EMBED).setTimestamp();

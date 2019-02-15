@@ -64,6 +64,7 @@ module.exports = async (client, data) => {
         }
     });
     translation.lastProposal = Date.now();
+    translation.pendingProposals = translation.pendingProposals + 1 || 1;
 
     //Set next translation if needed
     userData.translator.nextTranslation = userData.translator.languages.filter(l => translationData.translations.find(t => (t.language === l) && ((t.translation) || (t.proposedTranslations.length)))).length < userData.translator.languages.length ?

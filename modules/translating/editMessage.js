@@ -31,10 +31,12 @@ module.exports = async (client, message) => {
 
     //Get translation
     const translationData = await models.translations.findById(id);
-    const translation = translationData.translations.find(t => t.language === language).proposedTranslations.find(t => t.message === translationMessage.id);
+    const translationLanguage = translationData.translations.find(t => t.language === language);
+    const translation = translationLanguage.proposedTranslations.find(t => t.message === translationMessage.id);
 
     //Set translator
     translation.translator = { id: message.author.id, translation: message.content };
+    translationLanguage.pendingProposals = translationLanguage.pendingProposals - 1;
     message.author.data.verifiedTranslator = undefined;
 
     //Send confirmation

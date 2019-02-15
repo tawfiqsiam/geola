@@ -46,6 +46,7 @@ module.exports = async (client, message) => {
 
     //Set translator data
     message.author.data.verifiedTranslator = undefined;
+    translationLanguage.pendingProposals = translationLanguage.pendingProposals - 1;
 
     //Notify submitter
     const submitterData = submitter === message.author.id ? message.author.data : await models.users.findById(submitter);

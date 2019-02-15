@@ -41,4 +41,7 @@ module.exports = async (client, con) => {
 
     //Translator Dashboard: Submit
     con.on("tdSubmit", async (...params) => con.emit("tdSubmit", await webConnections.tdSubmit(client, ...params)));
+
+    //Verified Translator Dashboard
+    con.on("verifiedTranslatorDashboard", async (...params) => con.emit("verifiedTranslatorDashboard", await webConnections.verifiedTranslatorDashboard(client, ...params)));
 };

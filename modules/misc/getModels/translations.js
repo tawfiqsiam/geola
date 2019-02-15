@@ -19,6 +19,7 @@ module.exports = {
         language: String,
         translation: String,
         lastProposal: Number,
+        pendingProposals: Number,
         proposedTranslations: [{
             message: String,
             timestamp: Number,

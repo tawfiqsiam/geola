@@ -31,11 +31,13 @@ module.exports = async (client, message) => {
 
     //Get translation
     const translationData = await models.translations.findById(id);
-    const proposedTranslations = translationData.translations.find(t => t.language === language).proposedTranslations;
+    const translationLanguage = translationData.translations.find(t => t.language === language);
+    const proposedTranslations = translationLanguage.proposedTranslations;
     const translation = proposedTranslations.find(t => t.message === translationMessage.id);
 
     //Set translator
     translation.translator = { id: message.author.id };
+    translationLanguage.pendingProposals = translationLanguage.pendingProposals - 1;
 
     //Delete verified translator data
     message.author.data.verifiedTranslator = undefined;
