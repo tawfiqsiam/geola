@@ -46,7 +46,14 @@ module.exports = async (client, clientSecret) => {
                                                 $filter: {
                                                     input: "$translations",
                                                     cond: {
-                                                        $lte: ["$$this.lastProposal", "$lastEdit"]
+                                                        $and: [
+                                                            {
+                                                                $in: ["$$this.language", ["german"]]
+                                                            },
+                                                            {
+                                                                $lte: ["$$this.lastProposal", "$lastEdit"]
+                                                            }
+                                                        ]
                                                     }
                                                 }
                                             }
