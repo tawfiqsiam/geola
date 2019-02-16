@@ -48,7 +48,7 @@ module.exports = async (client, clientSecret) => {
                                                     cond: {
                                                         $and: [
                                                             {
-                                                                $in: ["$$this.language", ["german"]]
+                                                                $in: ["$$this.language", userData.translator.languages]
                                                             },
                                                             {
                                                                 $lte: ["$$this.lastProposal", "$lastEdit"]
