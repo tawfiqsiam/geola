@@ -24,7 +24,8 @@ module.exports = async (client, data) => {
         disabledCommands: c.disabledCommands,
         xpGain: c.xpGain === false ? false : true,
         ignoreDeletedMessages: Boolean(c.ignoreDeletedMessages),
-        counting: Boolean(c.counting)
+        counting: Boolean(c.counting),
+        language: c.language
     });
 
     //Fetch members + data
@@ -63,6 +64,9 @@ module.exports = async (client, data) => {
 
     //Parse server data: Commands
     serverDataLean.commands = _.commands.filter(c => (c.access === "everyone") && (!c.noToggle)).map(c => c.name);
+
+    //Get public languages
+    serverDataLean.publicLanguages = (await models.data.findOne()).validLanguages.filter(l => l.public);
 
     //Return
     return serverDataLean;
