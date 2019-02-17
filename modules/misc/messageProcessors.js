@@ -3,6 +3,4 @@ module.exports = [
     "acrs",
     "counting",
     "botVersion",
-    "translatingMessage",
-    "devTranslatingMessage"
 ];
