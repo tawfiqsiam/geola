@@ -12,7 +12,7 @@ module.exports = async (client, id) => {
     data.username = user.username;
 
     //Get self data
-    const self = "--" || await models.users.countDocuments({
+    const self = await models.users.countDocuments({
         bot: user.bot,
         "xp.totalXP": { $gte: data.xp.totalXP }
     });
