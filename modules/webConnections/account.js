@@ -12,6 +12,7 @@ module.exports = async (client, clientSecret) => {
 
     //Return
     return {
+        userID: userData._id,
         avatar: `https://cdn.discordapp.com/avatars/${userData._id}/${user.avatar}`
     };
 };
