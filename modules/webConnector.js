@@ -3,6 +3,9 @@ module.exports = async (client, con) => {
     //Pre Module
     const { webConnections } = client.modules;
 
+    //Account
+    con.on("account", async (...params) => con.emit("account", await webConnections.account(client, ...params)));
+
     //Stats
     con.on("stats", async (...params) => con.emit("stats", await webConnections.stats(client, ...params)));
 
