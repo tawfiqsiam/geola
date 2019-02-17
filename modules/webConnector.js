@@ -6,11 +6,14 @@ module.exports = async (client, con) => {
     //Account
     con.on("account", async (...params) => con.emit("account", await webConnections.account(client, ...params)));
 
-    //Stats
-    con.on("stats", async (...params) => con.emit("stats", await webConnections.stats(client, ...params)));
-
     //Auth
     con.on("auth", async (...params) => con.emit("auth", await webConnections.auth(client, ...params)));
+
+    //Logout
+    con.on("logout", async (...params) => con.emit("logout", await webConnections.logout(client, ...params)));
+
+    //Stats
+    con.on("stats", async (...params) => con.emit("stats", await webConnections.stats(client, ...params)));
 
     //Dashboard Home
     con.on("dashboardHome", async (...params) => con.emit("dashboardHome", await webConnections.dashboardHome(client, ...params)));
