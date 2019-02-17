@@ -44,4 +44,13 @@ module.exports = async (client, con) => {
 
     //Verified Translator Dashboard
     con.on("verifiedTranslatorDashboard", async (...params) => con.emit("verifiedTranslatorDashboard", await webConnections.verifiedTranslatorDashboard(client, ...params)));
+
+    //Verified Translator Dashboard: Submit
+    con.on("vtdSubmit", async (...params) => con.emit("vtdSubmit", await webConnections.vtdSubmit(client, ...params)));
+
+    //Dev Translator Dashboard
+    con.on("devTranslatorDashboard", async (...params) => con.emit("devTranslatorDashboard", await webConnections.devTranslatorDashboard(client, ...params)));
+
+    //Dev Translator Dashboard: Submit
+    con.on("dtdSubmit", async (...params) => con.emit("dtdSubmit", await webConnections.dtdSubmit(client, ...params)));
 };

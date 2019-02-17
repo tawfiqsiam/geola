@@ -66,13 +66,5 @@ module.exports = {
         }],
         lastNotificationsCheck: Number
     },
-    verifiedTranslator: {
-        message: String,
-        messageType: String
-    },
-    devTranslator: {
-        message: String,
-        messageType: String
-    },
     verified: Boolean
 };

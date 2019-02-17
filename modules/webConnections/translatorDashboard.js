@@ -11,7 +11,7 @@ module.exports = async (client, clientSecret) => {
 
     //Blacklisted
     if (userData.translator.blacklisted) return { error: "Blacklisted" };
-    if (await _.blacklisted(client, (client.users.get(userData._id) || await client.fetchUser(userData._id)))) return { error: "Blacklisted" };
+    if (await _.blacklisted(client, (client.users.get(userData._id) || await client.fetchUser(userData._id)))) return { error: "Blacklisted", notifications: userData.translator.notifications };
 
     //Terms not accepted
     if (!userData.translator.acceptedTerms) return { error: "Terms not accepted" };
@@ -37,7 +37,18 @@ module.exports = async (client, clientSecret) => {
                 $and: [
                     {
                         $or: [
-                            { "translations.language": { $nin: userData.translator.languages } },
+                            {
+                                $expr: {
+                                    $lt: [
+                                        {
+                                            $size: {
+                                                $setIntersection: ["$translations.language", userData.translator.languages]
+                                            }
+                                        },
+                                        userData.translator.languages.length
+                                    ]
+                                }
+                            },
                             {
                                 $expr: {
                                     $gte: [
@@ -51,7 +62,10 @@ module.exports = async (client, clientSecret) => {
                                                                 $in: ["$$this.language", userData.translator.languages]
                                                             },
                                                             {
-                                                                $lte: ["$$this.lastProposal", "$lastEdit"]
+                                                                $eq: ["$$this.proposedTranslation", null]
+                                                            },
+                                                            {
+                                                                $lte: ["$$this.lastEdit", "$lastEdit"]
                                                             }
                                                         ]
                                                     }
@@ -84,7 +98,7 @@ module.exports = async (client, clientSecret) => {
     );
 
     //No translations needed
-    if (!phrase.length) return { error: "No translations needed" };
+    if (!phrase.length) return { error: "No translations needed", notifications: userData.translator.notifications };
 
     //Get needed languages
     const neededLanguages = userData.translator.languages.filter(l => {

@@ -13,12 +13,8 @@ module.exports = async (client, clientSecret) => {
     if (userData.translator.blacklisted) return { error: "Blacklisted" };
     if (await _.blacklisted(client, user)) return { error: "Blacklisted" };
 
-    //Not a verified translator
-    let member = await _.promise(client.geolasHub.fetchMember(userData._id), true);
-    if (((!member) || (!member.roles.has("432635413354643457"))) && (!await _.isDev(client, user))) return { error: "Not a verified translator" };
-
-    //Get valid languages
-    const { validLanguages } = await models.data.findOne();
+    //Not a dev
+    if (!await _.isDev(client, user)) return { error: "Not a dev" };
 
     //Get translations
     let translations = await models.translations.find({
@@ -29,17 +25,7 @@ module.exports = async (client, clientSecret) => {
                         $filter: {
                             input: "$translations",
                             cond: {
-                                $and: [
-                                    {
-                                        $in: ["$$this.language", ["spanish", "dutch"]]
-                                    },
-                                    {
-                                        $ifNull: ["$$this.proposedTranslation", false]
-                                    },
-                                    {
-                                        $not: [{ $ifNull: ["$$this.proposedTranslation.translator", false] }]
-                                    }
-                                ]
+                                $ifNull: ["$$this.proposedTranslation.translator", false]
                             }
                         }
                     }
@@ -54,12 +40,9 @@ module.exports = async (client, clientSecret) => {
 
     //Get random translation
     let translation = translations[Math.floor(Math.random() * translations.length)].toObject();
-    translation.translation = translation.translations.filter(t => (userData.translator.languages.includes(t.language)) && (t.proposedTranslation) && (!t.proposedTranslation.translator));
+    translation.translation = translation.translations.filter(t => (t.proposedTranslation) && (t.proposedTranslation.translator));
     translation.translation = translation.translation[Math.floor(Math.random() * translation.translation.length)];
 
     //Return
-    return {
-        translation,
-        userLanguages: validLanguages.filter(l => userData.translator.languages.includes(l.name)),
-    };
+    return { translation };
 };

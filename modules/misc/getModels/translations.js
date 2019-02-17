@@ -18,11 +18,9 @@ module.exports = {
     translations: [{
         language: String,
         translation: String,
-        lastProposal: Number,
-        pendingProposals: Number,
-        proposedTranslations: [{
-            message: String,
-            timestamp: Number,
+        lastEdit: Number,
+        proposedTranslation: {
+            reportReason: String,
             user: {
                 id: String,
                 translation: String
@@ -31,6 +29,6 @@ module.exports = {
                 id: String,
                 translation: String
             }
-        }]
+        }
     }]
 };
