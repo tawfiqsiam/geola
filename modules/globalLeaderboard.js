@@ -20,18 +20,21 @@ module.exports = async (client, message) => {
     await _.save(client, message.author.data);
 
     //Get data
-    let data = await models.users.find(
+    let data = await models.users.aggregate([
         {
-            bot,
-            [type === "xp" ? "xp.totalXP" : "cubits"]: { $gt: 0 }
+            $match: {
+                $expr: {
+                    $and: [
+                        { $eq: ["$bot", bot] },
+                        { $gt: [type === "xp" ? "$xp.totalXP" : "$cubits", 0] }
+                    ]
+                }
+            }
         },
-        "xp cubits",
-        {
-            sort: type === "xp" ? { "xp.totalXP": -1 } : { cubits: -1 },
-            limit: 5,
-            skip: place
-        }
-    );
+        { $sort: { [type === "xp" ? "xp.totalXP" : "cubits"]: -1 } },
+        { $skip: place },
+        { $limit: 5 }
+    ]);
 
     //Page too high
     if (data.length === 0) return _.send({

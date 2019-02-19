@@ -20,19 +20,22 @@ module.exports = async (client, message) => {
     await _.save(client, message.member.data);
 
     //Get data
-    let data = await models.members.find(
+    let data = await models.members.aggregate([
         {
-            "_id.server": message.guild.id,
-            bot,
-            [type === "xp" ? "xp.totalXP" : "currency"]: { $gt: 0 }
+            $match: {
+                $expr: {
+                    $and: [
+                        { $eq: ["$_id.server", message.guild.id] },
+                        { $eq: ["$bot", bot] },
+                        { $gt: [type === "xp" ? "$xp.totalXP" : "$currency", 0] }
+                    ]
+                }
+            }
         },
-        "xp currency",
-        {
-            sort: type === "xp" ? { "xp.totalXP": -1 } : { currency: -1 },
-            limit: 5,
-            skip: place
-        }
-    );
+        { $sort: { [type === "xp" ? "xp.totalXP" : "currency"]: -1 } },
+        { $skip: place },
+        { $limit: 5 }
+    ]);
 
     //Page too high
     if (data.length === 0) return _.send({
