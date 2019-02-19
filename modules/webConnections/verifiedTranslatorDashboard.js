@@ -22,6 +22,7 @@ module.exports = async (client, clientSecret) => {
 
     //Get translations
     let translations = await models.translations.find({
+        translations: { $exists: true },
         $expr: {
             $gte: [
                 {

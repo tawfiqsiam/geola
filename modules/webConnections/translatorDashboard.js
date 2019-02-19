@@ -38,6 +38,9 @@ module.exports = async (client, clientSecret) => {
                     {
                         $or: [
                             {
+                                translations: { $exists: false }
+                            },
+                            {
                                 $expr: {
                                     $lt: [
                                         {
