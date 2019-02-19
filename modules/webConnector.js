@@ -27,6 +27,9 @@ module.exports = async (client, con) => {
     //Profile
     con.on("profile", async (...params) => con.emit("profile", await webConnections.profile(client, ...params)));
 
+    //Leaderboard
+    con.on("leaderboard", async (...params) => con.emit("leaderboard", await webConnections.leaderboard(client, ...params)));
+
     //Credits
     con.on("credits", async (...params) => con.emit("credits", await webConnections.credits(client, ...params)));
 
