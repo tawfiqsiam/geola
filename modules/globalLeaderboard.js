@@ -47,7 +47,7 @@ module.exports = async (client, message) => {
 
     //Embed
     let embed = new Discord.RichEmbed()
-        .setAuthor(`Global ${bot ? "Bot " : ""}Leaderboard`, client.user.displayAvatarURL)
+        .setAuthor(`Global ${bot ? "Bot " : ""}Leaderboard`, client.user.displayAvatarURL, "http://geolabot.com/leaderboard")
         .setDescription(`${type === "xp" ? "XP" : "Cubits"}, Page ${page}`)
         .setColor(_.colors.geola)
         .setTimestamp();
