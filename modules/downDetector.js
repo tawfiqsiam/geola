@@ -24,7 +24,7 @@ module.exports = async (client, message) => {
     let targetURL = url.parse(target);
 
     //No protocol
-    if (!targetURL.protocol) targetURL = url.parse(`https://${target}`);
+    if (!targetURL.protocol) targetURL = url.parse(`http://${target}`);
 
     //Invalid URL
     if (targetURL.host.split(".").slice(1).join(".").length <= 1) return _.send({
@@ -40,7 +40,7 @@ module.exports = async (client, message) => {
     data = await data.json();
 
     //No results
-    if (data.status_code === 2) return _.send({
+    if ((data.status_code === 2) || (!data.domain)) return _.send({
         client,
         id: "downdetector no results",
         channel: message.channel,
