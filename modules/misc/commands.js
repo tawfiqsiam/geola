@@ -386,6 +386,14 @@ module.exports = [
         usage: "imgur <Search Query | Image>"
     },
     {
+        file: "downDetector",
+        name: "Down Detector",
+        access: "everyone",
+        inputs: ["downdetector", "down", "downd", "ddetector"],
+        type: "fun",
+        usage: "downdetector <Website>"
+    },
+    {
         file: "leaderboard",
         name: "Leaderboard",
         access: "everyone",
