@@ -15,7 +15,7 @@ module.exports = async client => {
     //Get suggestors + donators
     let users = await models.users.find({
         _id: { $ne: client.apixel.id },
-        inv: { $elemMatch: { $or: [{ name: "Donator I Badge" }, { name: "Suggestor Badge" }] } }
+        inv: { $elemMatch: { $or: [{ name: "Donator I Badge" }, { name: "Suggestor Badge" }, { name: "Bug Hunter Badge" }] } }
     });
 
     data.donators = users.filter(u => u.inv.find(i => i.name === "Donator I Badge")).map(async u => {
@@ -29,6 +29,12 @@ module.exports = async client => {
         return { id: u.id, tag: `${u.username}#${u.discriminator}` };
     });
     data.suggestors = await Promise.all(data.suggestors);
+
+    data.bugHunters = users.filter(u => u.inv.find(i => i.name === "Bug Hunter Badge")).map(async u => {
+        u = client.users.get(u._id) || await client.fetchUser(u._id);
+        return { id: u.id, tag: `${u.username}#${u.discriminator}` };
+    });
+    data.bugHunters = await Promise.all(data.bugHunters);
 
     //Return
     return data;

@@ -35,6 +35,7 @@ module.exports = async (client, message) => {
         "Donator IV": ["donatoriv", "donator4", "donoriv", "donor4"],
         "Donator V": ["donatorv", "donator5", "donorv", "donor5"],
         "Suggestor": ["suggestor", "suggest"],
+        "Bug Hunter": ["bughunter", "bug", "bugh", "bhunter"],
         "Banhammer": ["banhammer", "ban"],
         "Bruise": ["bruise", "kicked"],
         "Shoe": ["shoe", "kick"],
