@@ -44,6 +44,9 @@ module.exports = async () => {
 
     webserver.listen(4200);
 
+    //Watch Twitter
+    client.modules.misc.watchTwitter();
+
     //Promise Rejections
     process.on("unhandledRejection", reason => {
 
