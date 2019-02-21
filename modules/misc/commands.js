@@ -391,7 +391,7 @@ module.exports = [
         access: "everyone",
         inputs: ["downdetector", "down", "downd", "ddetector"],
         type: "fun",
-        usage: "downdetector <Website>"
+        usage: "downdetector <URL>"
     },
     {
         file: "leaderboard",
