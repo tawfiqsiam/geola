@@ -44,9 +44,6 @@ module.exports = async () => {
 
     webserver.listen(4200);
 
-    //Watch Twitter
-    client.modules.misc.watchTwitter(client);
-
     //Promise Rejections
     process.on("unhandledRejection", reason => {
 
@@ -74,6 +71,7 @@ module.exports = async () => {
         client.user.setActivity("say g!help");
 
         //Build client: Misc
+        client.geola = client.users.get("298920361548840960");
         client.apixel = client.users.get("196795781410324480");
         client.geolasHub = client.guilds.get("318467989655781389");
         client.developerRole = client.geolasHub.roles.get("425060987578875904");
@@ -84,6 +82,9 @@ module.exports = async () => {
         client.alert = client.alert.send.bind(client.alert);
         client.joinLeave = client.channels.get("351121983322325002");
         client.joinLeave = client.joinLeave.send.bind(client.joinLeave);
+
+        //Watch Twitter
+        client.modules.misc.watchTwitter(client);
     });
 
     //Message

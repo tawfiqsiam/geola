@@ -3,6 +3,9 @@ module.exports = async client => {
     //Pre module
     const Twit = require("twit");
 
+    //Restrict use
+    if (client.user.id !== client.geola.id) return;
+
     //Initialize twit
     const twit = new Twit({
         consumer_key: process.env.TWITTER_CONSUMER_KEY,
