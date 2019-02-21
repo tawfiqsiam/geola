@@ -3,6 +3,9 @@ module.exports = async (client, tweet) => {
     //Pre Module
     const { Discord } = client.modules.misc.preModule(client);
 
+    //Filter out retweets
+    if (tweet.retweeted_status) return;
+
     //Embed
     const embed = new Discord.RichEmbed()
         .setTitle(`New Tweet by @${tweet.user.screen_name}`)
