@@ -45,7 +45,7 @@ module.exports = async () => {
     webserver.listen(4200);
 
     //Watch Twitter
-    client.modules.misc.watchTwitter();
+    client.modules.misc.watchTwitter(client);
 
     //Promise Rejections
     process.on("unhandledRejection", reason => {
@@ -79,6 +79,7 @@ module.exports = async () => {
         client.developerRole = client.geolasHub.roles.get("425060987578875904");
         client.verifiedRole = client.geolasHub.roles.get("413525830728417280");
         client.changeLog = client.channels.get("354383167999967234");
+        client.tweets = client.channels.get("547971371754455040");
         client.alert = client.channels.get("379346160122593280");
         client.alert = client.alert.send.bind(client.alert);
         client.joinLeave = client.channels.get("351121983322325002");

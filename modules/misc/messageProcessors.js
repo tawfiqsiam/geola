@@ -3,4 +3,5 @@ module.exports = [
     "acrs",
     "counting",
     "botVersion",
+    "tweetsCleaner"
 ];

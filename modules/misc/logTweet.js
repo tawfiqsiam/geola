@@ -1,0 +1,17 @@
+module.exports = async (client, tweet) => {
+
+    //Pre Module
+    const { Discord } = client.modules.misc.preModule(client);
+
+    //Embed
+    const embed = new Discord.RichEmbed()
+        .setTitle(`New Tweet by @${tweet.user.screen_name}`)
+        .setDescription(tweet.text)
+        .setColor(0x1da1f2)
+        .addField("Link", `[twitter.com...](https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str})`)
+        .setTimestamp();
+
+    //Send
+    const m = await client.tweets.send(embed);
+    m.react("✅");
+};
