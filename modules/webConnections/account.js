@@ -12,6 +12,7 @@ module.exports = async (client, clientSecret) => {
 
     //Return
     return {
-        avatar: user.avatar ? `https://cdn.discordapp.com/avatars/${userData._id}/${user.avatar}` : null
+        avatar: user.avatar ? `https://cdn.discordapp.com/avatars/${userData._id}/${user.avatar}` : null,
+        tag: `${user.username}#${user.discriminator}`
     };
 };
