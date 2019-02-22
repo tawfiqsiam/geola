@@ -3,6 +3,9 @@ module.exports = async (client, name, amount) => {
     //Pre Module
     const { models } = client.modules.misc.preModule(client);
 
+    //Amount is 0
+    if (amount === 0) return;
+
     //Parse amount
     if (!amount) amount = 1;
 
