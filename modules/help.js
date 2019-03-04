@@ -52,6 +52,7 @@ module.exports = async (client, message) => {
     //Embed
     let embed = new Discord.RichEmbed()
         .setTitle("Help")
+        .setDescription(contentType === "Modules" ? `Choose one of the following modules. For example, you can choose the basic module by saying \`${prefix}help basic\`` : "")
         .setColor(_.colors.geola)
         .addField("Prefix", `**${prefix}**`, true)
         .addField("Mod Prefix", `**${modPrefix}**`, true);
