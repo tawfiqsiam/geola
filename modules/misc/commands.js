@@ -205,7 +205,7 @@ module.exports = [
         file: "addRole",
         name: "Add Role",
         access: "mod",
-        inputs: ["addrole", "roleadd"],
+        inputs: ["addrole", "roleadd", "giverole", "rolegive"],
         type: "mod",
         usage: "addrole <User> <Role>"
     },
@@ -213,7 +213,7 @@ module.exports = [
         file: "removeRole",
         name: "Remove Role",
         access: "mod",
-        inputs: ["removerole", "roleremove"],
+        inputs: ["removerole", "roleremove", "takerole", "roletake"],
         type: "mod",
         usage: "removerole <User> <Role>"
     },
@@ -454,7 +454,7 @@ module.exports = [
         file: "addSelfRole",
         name: "Add Self Role",
         access: "everyone",
-        inputs: ["addrole", "addselfrole"],
+        inputs: ["addrole", "addselfrole", "roleadd", "selfroleadd"],
         type: "basic",
         usage: "addrole <Role>"
     },
@@ -462,7 +462,7 @@ module.exports = [
         file: "removeSelfRole",
         name: "Remove Self Role",
         access: "everyone",
-        inputs: ["removerole", "removeselfrole"],
+        inputs: ["removerole", "removeselfrole", "roleremove", "selfroleremove"],
         type: "basic",
         usage: "removerole <Role>"
     },
