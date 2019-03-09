@@ -18,6 +18,9 @@ module.exports = async (client, con) => {
     //Dashboard Servers
     con.on("dashboardServers", async (...params) => con.emit("dashboardServers", await webConnections.dashboardServers(client, ...params)));
 
+    //Dashboard Home
+    con.on("dashboardHome", async (...params) => con.emit("dashboardHome", await webConnections.dashboardHome(client, ...params)));
+
     //Dashboard
     con.on("dashboard", async (...params) => con.emit("dashboard", await webConnections.dashboard(client, ...params)));
 
