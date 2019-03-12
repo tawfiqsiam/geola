@@ -3,7 +3,7 @@ module.exports = async (client, member) => {
     //Pre Module
     const { models, _ } = client.modules.misc.preModule(client);
     const modules = client.modules.memberJoin;
-    let setRoles = [];
+    let addRoles = [];
 
     //Get server data
     const serverData = await models.servers.findById(member.guild.id);
@@ -57,17 +57,17 @@ module.exports = async (client, member) => {
 
     //Remembrance
     const memberData = await models.members.findById({ server: member.guild.id, user: member.id });
-    if ((serverData.hasOwnProperty("rememberedRoles")) && (memberData.roles)) setRoles = setRoles.concat(memberData.roles.filter(r => serverData.rememberedRoles.includes(r)));
+    if ((serverData.rememberedRoles) && (memberData.roles)) addRoles = addRoles.concat(memberData.roles.filter(r => serverData.rememberedRoles.includes(r)));
     if ((serverData.nicknameRemembrance) && (memberData.nickname)) member.setNickname(memberData.nickname);
 
     //Autorole
     if (serverData.autoroles) {
-        setRoles = setRoles.concat(serverData.autoroles);
+        addRoles = addRoles.concat(serverData.autoroles);
         _.stats(client, "Autoroles Added", serverData.autoroles.length);
     }
 
     //Set roles
-    member.setRoles([...new Set(setRoles)]);
+    member.addRoles([...new Set(addRoles)]);
 
     //Stats
     _.stats(client, "Members Joined");
