@@ -67,6 +67,7 @@ module.exports = async (client, data) => {
 
     //Get public languages
     serverDataLean.publicLanguages = (await models.data.findOne()).validLanguages.filter(l => l.public);
+    serverDataLean.publicLanguages.unshift({ name: "english", displayName: "English" });
 
     //Return
     return serverDataLean;
