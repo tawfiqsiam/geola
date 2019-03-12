@@ -45,7 +45,7 @@ module.exports = async (client, data) => {
 
     //Parse server data: Channels
     serverDataLean.channels = textChannels
-        .map(c => Object.assign({ id: c.id, name: c.name }, channelData[c.id]))
+        .map(c => Object.assign({ id: c.id, name: `#${c.name}` }, channelData[c.id]))
         .sort((a, b) => server.channels.get(a.id).calculatedPosition - server.channels.get(b.id).calculatedPosition);
 
     //Parse server data: Roles
