@@ -1,10 +1,10 @@
-module.exports = async (client, xpBlacklistBots, { server }) => {
+module.exports = async (client, xpUnblacklistBots, { server }) => {
 
     //Pre Module
     const { models } = client.modules.misc.preModule(client);
 
-    //No xp blacklist bots
-    if (!xpBlacklistBots) return;
+    //No xp unblacklist bots
+    if (!xpUnblacklistBots) return;
 
     //Fetch all members
     await server.fetchMembers();
@@ -16,6 +16,6 @@ module.exports = async (client, xpBlacklistBots, { server }) => {
             bot: true,
             "_id.user": { $in: [...server.members.keys()] }
         },
-        { "xp.blacklisted": true }
+        { $unset: { "xp.blacklisted": 1 } }
     );
 };
