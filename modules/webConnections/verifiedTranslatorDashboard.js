@@ -32,7 +32,7 @@ module.exports = async (client, clientSecret) => {
                             cond: {
                                 $and: [
                                     {
-                                        $in: ["$$this.language", ["spanish", "dutch"]]
+                                        $in: ["$$this.language", userData.translator.languages]
                                     },
                                     {
                                         $ifNull: ["$$this.proposedTranslation", false]
