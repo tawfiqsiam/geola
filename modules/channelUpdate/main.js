@@ -2,10 +2,15 @@ module.exports = async (client, oldChannel, newChannel) => {
 
     //Pre Module
     const { models, _ } = client.modules.misc.preModule(client);
+    const deepEqual = require("deep-equal");
     const modules = client.modules.channelUpdate;
 
     //No changes
     if (oldChannel.position !== newChannel.position) return;
+    if (!deepEqual(
+        oldChannel.permissionOverwrites.array().map(p => ({ id: p.id, type: p.type, allow: p.allow, deny: p.deny })),
+        newChannel.permissionOverwrites.array().map(p => ({ id: p.id, type: p.type, allow: p.allow, deny: p.deny }))
+    )) return;
 
     //Get server data
     const serverData = await models.servers.findById(newChannel.guild.id);

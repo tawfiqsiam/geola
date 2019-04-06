@@ -6,6 +6,7 @@ module.exports = async (client, oldRole, newRole) => {
 
     //No changes
     if ((oldRole.position !== newRole.position) || (newRole.id === newRole.guild.id)) return;
+    if (oldRole.permissions !== newRole.permissions) return;
 
     //Get server data
     const serverData = await models.servers.findById(newRole.guild.id);
