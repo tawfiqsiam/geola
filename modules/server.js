@@ -73,8 +73,8 @@ module.exports = async (client, message) => {
     const totalChannels = server.channels.size;
 
     //Roles
-    let levelRewardRoles = serverData.get("levelRewards") ?
-        serverData.levelRewards.filter(lr => lr.hasOwnProperty("addRoles")).map(lr => lr.addRoles) :
+    let levelRewardRoles = serverData.levelRewards ?
+        serverData.levelRewards.filter(lr => lr.addRoles).map(lr => lr.addRoles) :
         [];
     levelRewardRoles = server.roles.filter(r => levelRewardRoles.some(lr => lr.includes(r.id)));
 

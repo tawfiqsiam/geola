@@ -70,8 +70,8 @@ module.exports = async (client, message) => {
 
     //Level Reward
     if (
-        (message.guild.data.get("levelRewards")) &&
-        (message.guild.data.levelRewards.filter(lr => lr.hasOwnProperty("addRoles")).map(lr => lr.addRoles).some(lr => lr.includes(role.id)))
+        (message.guild.data.levelRewards) &&
+        (message.guild.data.levelRewards.filter(lr => lr.addRoles).map(lr => lr.addRoles).some(lr => lr.includes(role.id)))
     ) types.push("Level Reward");
 
     //Position
