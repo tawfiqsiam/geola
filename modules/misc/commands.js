@@ -125,7 +125,7 @@ module.exports = [
         file: "server",
         name: "Server",
         access: "everyone",
-        inputs: ["server", "guild", "serverid", "guildid"],
+        inputs: ["server", "serverinfo", "infoserver", "guild", "guildinfo", "infoguild", "serverid", "guildid"],
         type: "basic",
         usage: "server [Server ID]"
     },
@@ -133,7 +133,7 @@ module.exports = [
         file: "channel",
         name: "Channel",
         access: "everyone",
-        inputs: ["channel", "chan", "channelid", "chanid"],
+        inputs: ["channel", "channelinfo", "infochannel", "chan", "chaninfo", "infochan", "channelid", "chanid"],
         type: "basic",
         usage: "channel [Channel]"
     },
@@ -141,7 +141,7 @@ module.exports = [
         file: "role",
         name: "Role",
         access: "everyone",
-        inputs: ["role", "roleid"],
+        inputs: ["role", "roleinfo", "inforole", "roleid"],
         type: "basic",
         usage: "role [Role]"
     },
@@ -149,7 +149,7 @@ module.exports = [
         file: "user",
         name: "User",
         access: "everyone",
-        inputs: ["user", "userid"],
+        inputs: ["user", "userinfo", "infouser", "userid"],
         type: "basic",
         usage: "user [User]"
     },
@@ -157,7 +157,7 @@ module.exports = [
         file: "emoji",
         name: "Emoji",
         access: "everyone",
-        inputs: ["emoji", "emojiid", "emojid"],
+        inputs: ["emoji", "emojiinfo", "infoemoji", "emojiid", "emojid"],
         type: "basic",
         usage: "emoji <Emoji>"
     },
