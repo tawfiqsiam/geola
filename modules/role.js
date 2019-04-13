@@ -71,8 +71,8 @@ module.exports = async (client, message) => {
     //Level Reward
     if (
         (message.guild.data.levelRewards) &&
-        (message.guild.data.levelRewards.filter(lr => lr.addRoles).map(lr => lr.addRoles).some(lr => lr.includes(role.id)))
-    ) types.push("Level Reward");
+        (message.guild.data.levelRewards.find(lr => lr.addRoles && lr.addRoles.includes(role.id)))
+    ) types.push(`Level ${message.guild.data.levelRewards.find(lr => lr.addRoles && lr.addRoles.includes(role.id)).level} Level Reward`);
 
     //Position
     let position = message.guild.roles.size - role.calculatedPosition;
