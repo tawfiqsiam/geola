@@ -3,6 +3,7 @@ module.exports = async () => {
     //Modules
     const Discord = require("discord.js");
     const client = new Discord.Client();
+    const fs = require("fs");
     const mongoose = require("mongoose");
     const chalk = require("chalk");
     const express = require("express");
@@ -35,14 +36,17 @@ module.exports = async () => {
 
     //Web Connections
     const app = express();
-    const webserver = require("http").createServer(app);
+    const webserver = require("https").createServer({
+        key: fs.readFileSync("/etc/letsencrypt/live/geolabot.com/privkey.pem"),
+        cert: fs.readFileSync("/etc/letsencrypt/live/geolabot.com/fullchain.pem")
+    }, app);
     const io = require("socket.io")(webserver);
 
     app.use(express.static(`${__dirname}/node_modules`));
 
     io.on("connection", con => client.modules.webConnector(client, con));
 
-    webserver.listen(4200);
+    webserver.listen(4000);
 
     //Promise Rejections
     process.on("unhandledRejection", reason => {

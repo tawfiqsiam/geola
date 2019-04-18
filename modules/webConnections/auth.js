@@ -7,7 +7,7 @@ module.exports = async (client, code) => {
 
     //Get access + refresh token
     const credentials = btoa(`${client.user.id}:${process.env.CLIENT_SECRET}`);
-    let result = await fetch(`https://discordapp.com/api/oauth2/token?grant_type=authorization_code&code=${code}&redirect_uri=http://geolabot.com/auth`, {
+    let result = await fetch(`https://discordapp.com/api/oauth2/token?grant_type=authorization_code&code=${code}&redirect_uri=https://geolabot.com/auth`, {
         method: "POST",
         headers: {
             Authorization: `Basic ${credentials}`
