@@ -6,6 +6,9 @@ module.exports = async (client, tweet) => {
     //Filter out retweets
     if (tweet.retweeted_status) return;
 
+    //Filter out tweets from @geolabot
+    if (tweet.user.screen_name === "geolabot") return;
+
     //Embed
     const embed = new Discord.RichEmbed()
         .setTitle(`New Tweet by @${tweet.user.screen_name}`)
