@@ -15,6 +15,6 @@ module.exports = async client => {
     });
 
     //Stream tweets
-    const stream = twit.stream("statuses/filter", { track: "geola, mee6, discord bot, discord server" });
+    const stream = twit.stream("statuses/filter", { track: "geola, mee6, discord bot" });
     stream.on("tweet", tweet => client.modules.misc.logTweet(client, tweet));
 };
