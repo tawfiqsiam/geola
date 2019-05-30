@@ -189,7 +189,7 @@ module.exports = [
         file: "prune",
         name: "Prune",
         access: "mod",
-        inputs: ["prune", "purge"],
+        inputs: ["prune", "purge", "clear"],
         type: "mod",
         usage: "prune <Amount>"
     },
