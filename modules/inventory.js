@@ -37,10 +37,11 @@ module.exports = async (client, message) => {
         await models.members.findById({ server: message.guild.id, user: target.id });
 
     //Build items
+    const inv = [...data.inv].sort((a, b) => a.name < b.name ? -1 : 1);
     const number = 10 * (page - 1);
     let items = "";
     for (let i = number; i < number + 10; i++) {
-        let item = data.inv[i];
+        let item = inv[i];
         if (item) items = `${items}\n${item.name}: ${item.amount}`;
     }
 
