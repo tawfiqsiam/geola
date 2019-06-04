@@ -38,6 +38,7 @@ module.exports = guild => {
         "eu-west": "Western Europe",
         "southafrica": "South Africa",
         "japan": "Japan",
+        "india": "India",
         "vip-brazil": "Brazil (VIP)",
         "vip-eu-central": "Central Europe (VIP)",
         "vip-hongkong": "Hong Kong (VIP)",
@@ -50,7 +51,8 @@ module.exports = guild => {
         "vip-us-west": "US West (VIP)",
         "vip-eu-west": "Western Europe (VIP)",
         "vip-southafrica": "South Africa (VIP)",
-        "vip-japan": "Japan (VIP)"
+        "vip-japan": "Japan (VIP)",
+        "vip-india": "India (VIP)"
     }[guild.region.value];
 
     return guild;

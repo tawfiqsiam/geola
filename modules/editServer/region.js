@@ -57,6 +57,10 @@ module.exports = async (client, message, value) => {
         "japan": {
             inputs: ["japan"],
             name: "Japan"
+        },
+        "india": {
+            inputs: ["india"],
+            name: "India"
         }
     };
 

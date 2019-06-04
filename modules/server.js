@@ -48,6 +48,7 @@ module.exports = async (client, message) => {
         "eu-west": "Western Europe",
         "southafrica": "South Africa",
         "japan": "Japan",
+        "india": "India",
         "vip-brazil": "Brazil (VIP)",
         "vip-eu-central": "Central Europe (VIP)",
         "vip-hongkong": "Hong Kong (VIP)",
@@ -60,7 +61,8 @@ module.exports = async (client, message) => {
         "vip-us-west": "US West (VIP)",
         "vip-eu-west": "Western Europe (VIP)",
         "vip-southafrica": "South Africa (VIP)",
-        "vip-japan": "Japan (VIP)"
+        "vip-japan": "Japan (VIP)",
+        "vip-india": "India (VIP)"
     }[server.region];
 
     //Fetch owner into cache
