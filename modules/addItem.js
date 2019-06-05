@@ -54,7 +54,7 @@ module.exports = async (client, message) => {
     //Get target data
     let targetData = target.id === message.author.id ?
         message.member.data :
-        await models.member.findById(target.id);
+        await models.members.findById({ server: message.guild.id, user: target.id });
 
     //Get item
     item = message.guild.data.get("items") ?
