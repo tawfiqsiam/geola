@@ -3,8 +3,8 @@ module.exports = async client => {
     //Pre module
     const Twit = require("twit");
 
-    //Restrict use
-    if (client.user.id !== client.geola.id) return;
+    //Only use in production
+    if (process.env.DEV === "true") return;
 
     //Initialize twit
     const twit = new Twit({

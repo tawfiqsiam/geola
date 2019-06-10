@@ -27,7 +27,7 @@ module.exports = async () => {
     console.log(chalk.magenta("Connecting to MongoDB..."));
 
     mongoose.connect(`mongodb://${process.env.IP}`, {
-        dbName: process.env.DB_NAME,
+        dbName: process.env.DEV === "true" ? "geolachild" : "geola",
         user: "root",
         pass: process.env.DB_PASSWORD
     });
@@ -36,10 +36,11 @@ module.exports = async () => {
 
     //Web Connections
     const app = express();
-    const webserver = require("https").createServer({
-        key: fs.readFileSync("/etc/letsencrypt/live/geolabot.com/privkey.pem"),
-        cert: fs.readFileSync("/etc/letsencrypt/live/geolabot.com/fullchain.pem")
-    }, app);
+    const webserver = require("https").createServer(
+        process.env.DEV === "true" ?
+            { key: fs.readFileSync("/home/apixel/key.pem"), cert: fs.readFileSync("/home/apixel/server.crt") } :
+            { key: fs.readFileSync("/etc/letsencrypt/live/geolabot.com/privkey.pem"), cert: fs.readFileSync("/etc/letsencrypt/live/geolabot.com/fullchain.pem") },
+        app);
     const io = require("socket.io")(webserver);
 
     app.use(express.static(`${__dirname}/node_modules`));
