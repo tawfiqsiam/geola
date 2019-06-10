@@ -9,6 +9,9 @@ module.exports = async (client, tweet) => {
     //Filter out tweets from @geolabot
     if (tweet.user.screen_name === "geolabot") return;
 
+    //Filter out tweets from spam users
+    if (["1027572102562504704"].includes(tweet.user.screen_name)) return;
+
     //Embed
     const embed = new Discord.RichEmbed()
         .setTitle(`New Tweet by @${tweet.user.screen_name}`)
