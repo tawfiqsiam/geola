@@ -7,10 +7,10 @@ module.exports = async (client, tweet) => {
     if (tweet.retweeted_status) return;
 
     //Filter out tweets from @geolabot
-    if (tweet.user.screen_name === "geolabot") return;
+    if (tweet.user.id_str === "929863537937154049") return;
 
     //Filter out tweets from spam users
-    if (["1027572102562504704"].includes(tweet.user.screen_name)) return;
+    if (["1027572102562504704"].includes(tweet.user.id_str)) return;
 
     //Embed
     const embed = new Discord.RichEmbed()
