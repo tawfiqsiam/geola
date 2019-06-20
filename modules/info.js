@@ -26,9 +26,9 @@ module.exports = async (client, message) => {
         .setDescription(`Geola is a premium-grade Discord bot that focuses on customization. We cover all the basics, such as moderation, utility, etc., but we really shine with *customizing*  those "basic" features. For instance, Bot Logs. Instead of just assigning a channel for them, why not assign what actually gets logged? Ever wish Discord would remember the roles of a member, in case they left and joined later on? Fixed that for you. Oh and we also cover nicknames. It's the little things that Geola introduces, that come together to enrich your server's experience for the people that matter the most - your members.`)
         .setColor(_.colors.geola)
         .addField("Credits", `
-                Developed by **APixel Visuals#2820**
-                Hosted by **DigitalOcean**
-                Domain reserved by **NameCheap**
+                Developed by [APixel Visuals#2820](https://apixel.me)
+                Hosted by [DigitalOcean](https://m.do.co/c/df0baa1472d8)
+                Domain reserved by [NameCheap](https://namecheap.com)
             `, true)
         .addField("Technical Stats", `
                 Bot version **${version}** (**${data.updates}** total updates!)
