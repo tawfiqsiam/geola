@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
         .addField("Credits", `
                 Developed by **APixel Visuals#2820**
                 Hosted by **DigitalOcean**
-                Website hosted by **NameCheap**
+                Domain reserved by **NameCheap**
             `, true)
         .addField("Technical Stats", `
                 Bot version **${version}** (**${data.updates}** total updates!)
