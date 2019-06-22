@@ -22,7 +22,7 @@ module.exports = async (client, message) => {
 
     //Embed
     let embed = new Discord.RichEmbed()
-        .setAuthor("Geola", client.user.displayAvatarURL, "http://geolabot.com")
+        .setAuthor("Geola", client.user.displayAvatarURL, "https://geolabot.com")
         .setDescription(`Geola is a premium-grade Discord bot that focuses on customization. We cover all the basics, such as moderation, utility, etc., but we really shine with *customizing*  those "basic" features. For instance, Bot Logs. Instead of just assigning a channel for them, why not assign what actually gets logged? Ever wish Discord would remember the roles of a member, in case they left and joined later on? Fixed that for you. Oh and we also cover nicknames. It's the little things that Geola introduces, that come together to enrich your server's experience for the people that matter the most - your members.`)
         .setColor(_.colors.geola)
         .addField("Credits", `
@@ -42,7 +42,7 @@ module.exports = async (client, message) => {
                 **${client.users.size}** Users
             `, true)
         .addBlankField(true)
-        .addField("\u200b", "[Add Me](http://geolabot.com/invite) \u2022 [My Hub (Support Server)](https://discord.gg/eCDafVC) \u2022 [Website](http://geolabot.com) \u2022 [Wiki](http://geolabot.com/wiki) \u2022 [Donate](http://geolabot.com/donate) \u2022 [Upvote](https://discordbots.org/bot/298920361548840960)");
+        .addField("\u200b", "[Add Me](https://geolabot.com/invite) \u2022 [My Hub (Support Server)](https://discord.gg/eCDafVC) \u2022 [Website](https://geolabot.com) \u2022 [Wiki](https://geolabot.com/wiki) \u2022 [Donate](https://geolabot.com/donate) \u2022 [Upvote](https://discordbots.org/bot/298920361548840960)");
 
     //Send
     message.channel.send(embed);

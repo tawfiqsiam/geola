@@ -8,7 +8,7 @@ module.exports = async (client, message) => {
         client,
         id: "settings",
         channel: message.channel,
-        message: "You can access the Dashboard at http://geolabot.com/dashboard",
+        message: "You can access the Dashboard at https://geolabot.com/dashboard",
         emoji: "gear"
     });
 };

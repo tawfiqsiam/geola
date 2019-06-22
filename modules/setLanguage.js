@@ -38,7 +38,7 @@ module.exports = async (client, message) => {
         client,
         id: "setlanguage language not public",
         channel: message.channel,
-        message: "This language is still being translated! If you are fluent in both English and {VAR1}, feel free to contribute to the translations at http://geolabot.com/translate",
+        message: "This language is still being translated! If you are fluent in both English and {VAR1}, feel free to contribute to the translations at https://geolabot.com/translate",
         emoji: "x",
         vars: [language.displayName]
     });

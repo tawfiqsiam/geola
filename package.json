@@ -1,7 +1,7 @@
 {
   "name": "geola",
   "version": "1.0.0",
-  "description": "Geola is a premium-grade, feature rich, Discord bot. You can learn more about Geola over on [our website](http://geolabot.com).",
+  "description": "Geola is a premium-grade, feature rich, Discord bot. You can learn more about Geola over on [our website](https://geolabot.com).",
   "main": "index.js",
   "dependencies": {
     "btoa": "^1.2.1",

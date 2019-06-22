@@ -41,7 +41,7 @@ module.exports = async (client, message) => {
 
     //Embed
     let embed = new Discord.RichEmbed()
-        .setAuthor(target.tag, target.displayAvatarURL, `http://geolabot.com/profile/${target.id}`)
+        .setAuthor(target.tag, target.displayAvatarURL, `https://geolabot.com/profile/${target.id}`)
         .setColor(await _.getColor(target.displayAvatarURL))
         .addField("Level", data.xp.level, true)
         .addField("XP", `${data.xp.xp}/${(data.xp.level * 50) + 200}`, true)

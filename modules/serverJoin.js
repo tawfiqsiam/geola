@@ -45,8 +45,8 @@ module.exports = async (client, guild) => {
 
     //Thank you message
     let embed = new Discord.RichEmbed()
-        .setAuthor("Hey! Thanks for adding me!", client.user.displayAvatarURL, "http://geolabot.com")
-        .setDescription(`You need to set me up for this server! To do so, simply have a moderator visit [geolabot.com/dashboard](http://geolabot.com/dashboard) to access the Dashboard. I recommend starting in the "Main" section. If you have any questions, join my support server at https://discord.gg/eCDafVC and ask away in the \`#support\` channel!`)
+        .setAuthor("Hey! Thanks for adding me!", client.user.displayAvatarURL, "https://geolabot.com")
+        .setDescription(`You need to set me up for this server! To do so, simply have a moderator visit [geolabot.com/dashboard](https://geolabot.com/dashboard) to access the Dashboard. I recommend starting in the "Main" section. If you have any questions, join my support server at https://discord.gg/eCDafVC and ask away in the \`#support\` channel!`)
         .setColor(_.colors.geola);
 
     let embedChannel = guild.channels.filter(c => c.type === "text").array()[0];

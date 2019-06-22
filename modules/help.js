@@ -76,7 +76,7 @@ module.exports = async (client, message) => {
     content.forEach((c, i) => embed.addField(i === 0 ? contentType : "\u200b", c));
 
     //Embed links
-    embed.addField("\u200b", "[Invite Me](http://geolabot.com/invite) \u2022 [Join My Hub (Support Server)](https://discord.gg/eCDafVC) \u2022 [Donate](http://geolabot.com/donate)");
+    embed.addField("\u200b", "[Invite Me](https://geolabot.com/invite) \u2022 [Join My Hub (Support Server)](https://discord.gg/eCDafVC) \u2022 [Donate](https://geolabot.com/donate)");
 
     //Send
     let sent = await _.promise(message.author.send(embed), true);
