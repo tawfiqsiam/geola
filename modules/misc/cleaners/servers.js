@@ -79,14 +79,14 @@ module.exports = (client, doc) => {
         const whitelistedChannels = a.whitelistedChannels;
         a.whitelistedChannels = [];
         whitelistedChannels.forEach(r => {
-            if (server.roles.get(r)) a.whitelistedChannels.push(r);
+            if (server.channels.get(r)) a.whitelistedChannels.push(r);
         });
 
         //Blacklisted channels
         const blacklistedChannels = a.blacklistedChannels;
         a.blacklistedChannels = [];
         blacklistedChannels.forEach(r => {
-            if (server.roles.get(r)) a.blacklistedChannels.push(r);
+            if (server.channels.get(r)) a.blacklistedChannels.push(r);
         });
 
         //Whitelisted roles

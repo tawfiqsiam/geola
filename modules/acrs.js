@@ -98,6 +98,6 @@ module.exports = async (client, message) => {
         let cooldown = memberData.acrCooldowns.find(c => c.trigger === acr.trigger);
         if (!cooldown) memberData.acrCooldowns.push({ trigger: acr.trigger });
         cooldown = memberData.acrCooldowns.find(c => c.trigger === acr.trigger);
-        cooldown.cooldown = Date.now() + acr.cooldown;
+        cooldown.cooldown = Date.now() + (acr.cooldown * 1000);
     }
 };
