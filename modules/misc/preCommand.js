@@ -27,7 +27,7 @@ module.exports = async (client, message, command, cooldown) => {
     }
 
     //Set cooldown
-    client.cooldowns.set(message.author.id, Date.now() + cooldown);
+    if (message.author.id !== client.apixel.id) client.cooldowns.set(message.author.id, Date.now() + cooldown);
 
     return true;
 };
