@@ -46,8 +46,7 @@ module.exports = async (client, message) => {
 
     //Get item
     let role = _.findRole(message.guild, item);
-    item = (role && role.id) || item;
-    item = shop.items.find(i => i.name.toLowerCase().replace(/\s+/g, "") === item.toLowerCase().replace(/\s+/g, ""));
+    item = (role && role.id && shop.items.find(i => i.name.toLowerCase().replace(/\s+/g, "") === role.id)) || shop.items.find(i => i.name.toLowerCase().replace(/\s+/g, "") === item.toLowerCase().replace(/\s+/g, ""));
 
     //Not sellable
     if ((!item) || (!item.sellPrice)) return _.send({
