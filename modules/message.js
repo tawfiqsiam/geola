@@ -62,8 +62,8 @@ module.exports = async (client, message) => {
     if ((simplifiedMessage.startsWith("<@520384353931493378>")) || (simplifiedMessage.startsWith("<@!520384353931493378>")) || (simplifiedMessage.startsWith("geola,"))) command = "talk"; //talk
 
     command = client.modules[command];
-    if (typeof command === "function") runningModules.push(command(client, message));
-    else if (typeof command === "object") runningModules.push(command.main(client, message));
+    if ((typeof command === "function") && (!message.channel.data.counting)) runningModules.push(command(client, message));
+    else if ((typeof command === "object") && (!message.channel.data.counting)) runningModules.push(command.main(client, message));
 
     //Await running modules
     await Promise.all(runningModules);
