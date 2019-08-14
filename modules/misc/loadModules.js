@@ -11,7 +11,7 @@ module.exports = () => {
 
         src.forEach(f => {
             if (!f.name.includes("!")) {
-                if ((f.type === "file") && (f.extension === ".js")) data[f.name.replace(/\.js/g, "")] = require(`./../../${f.path}`);
+                if ((f.type === "file") && (f.extension === ".js")) data[f.name.replace(/\.js/g, "")] = require(f.path);
                 else if (f.type === "directory") data[f.name] = buildModules(f);
             }
         });
@@ -19,6 +19,6 @@ module.exports = () => {
         return data;
     };
 
-    let tree = readdir("./modules").children;
+    let tree = readdir(process.env.DEV === "true" ? "/home/apixel/Documents/geola/modules" : "/root/geola/modules").children;
     return buildModules(tree);
 };
