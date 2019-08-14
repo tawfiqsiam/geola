@@ -22,17 +22,17 @@ module.exports = async (client, oldMember, newMember) => {
     if ((logChannel) && (newMember.joinedTimestamp < Date.now() - 3000)) {
 
         const type = newMember.roles.size > oldMember.roles.size ? "add" : "remove";
-        const role = newMember.guild.roles.get(type === "add" ? newRoles.find(r => !oldRoles.includes(r)) : oldRoles.find(r => !newRoles.includes(r)));
+        const roles = (type === "add" ? newRoles.filter(r => !oldRoles.includes(r)) : oldRoles.filter(r => !newRoles.includes(r))).map(r => newMember.guild.roles.get(r));
 
         let audit = await newMember.guild.fetchAuditLogs({ limit: 1 });
         audit = audit.entries.array()[0];
 
         //Embed
         const embed = new Discord.RichEmbed()
-            .setTitle(`Role ${type === "add" ? "Added" : "Removed"}`)
+            .setTitle(`Role${roles.length > 1 ? "s" : ""} ${type === "add" ? "Added" : "Removed"}`)
             .setDescription(`${newMember} (${newMember.user.tag})`)
             .setColor(_.colors[type === "add" ? "good" : "bad"])
-            .addField("Role", `${role.name} (${role.id})`)
+            .addField(`Role${roles.length > 1 ? "s" : ""}`, roles.map(r => `${r.name} (${r.id})`).join("\n"))
             .addField(`Role ${type === "add" ? "Adder" : "Remover"}`, `${audit.executor} (${audit.executor.id})`)
             .setTimestamp();
 
